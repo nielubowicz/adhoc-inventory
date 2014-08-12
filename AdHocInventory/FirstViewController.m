@@ -7,6 +7,7 @@
 //
 
 #import "FirstViewController.h"
+#import "DatabaseManager.h"
 
 @interface FirstViewController ()
 
@@ -18,6 +19,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    DatabaseManager *db = [DatabaseManager sharedManager];
 }
 
 - (void)didReceiveMemoryWarning

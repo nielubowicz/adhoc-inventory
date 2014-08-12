@@ -10,4 +10,7 @@
 
 @interface FirstViewController : UIViewController
 
+@property (strong,nonatomic)IBOutlet UITextField *category;
+@property (strong,nonatomic)IBOutlet UITextField *description;
+
 @end
