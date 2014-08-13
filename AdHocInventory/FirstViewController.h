@@ -13,4 +13,6 @@
 @property (strong,nonatomic)IBOutlet UITextField *category;
 @property (strong,nonatomic)IBOutlet UITextField *description;
 
+-(IBAction)addItem:(id)sender;
+
 @end
