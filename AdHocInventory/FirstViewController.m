@@ -17,6 +17,7 @@
 
 @synthesize description;
 @synthesize category;
+@synthesize barcode;
 
 - (void)viewDidLoad
 {

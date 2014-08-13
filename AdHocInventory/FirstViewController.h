@@ -12,6 +12,7 @@
 
 @property (strong,nonatomic)IBOutlet UITextField *category;
 @property (strong,nonatomic)IBOutlet UITextField *description;
+@property (strong,nonatomic)IBOutlet UIImageView *barcode;
 
 -(IBAction)addItem:(id)sender;
 
