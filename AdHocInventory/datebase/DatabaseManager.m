@@ -1,5 +1,6 @@
 #import "DatabaseManager.h"
 #import <sqlite3.h>
+#import "InventoryItem.h"
 
 @interface DatabaseManager()
 
@@ -79,7 +80,7 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
 
 #pragma mark -
 #pragma mark Data entry methods
--(NSUInteger)addItem:(NSString *)item category:(NSString *)category
+-(InventoryItem *)addItem:(NSString *)itemDescription category:(NSString *)category
 {
     const char *dbpath = [_databasePath UTF8String];
 
@@ -148,7 +149,7 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
     // find item ID
     int itemID = -1;
     querySQL = [NSString stringWithFormat:
-                @"SELECT ItemID, Description FROM itemdescriptions WHERE Description LIKE \"%@\";", item];
+                @"SELECT ItemID, Description FROM itemdescriptions WHERE Description LIKE \"%@\";", itemDescription];
     
     query_stmt = [querySQL UTF8String];
     
@@ -167,14 +168,14 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
     // if item not found, create it
     if (itemID < 0)
     {
-        querySQL = [NSString stringWithFormat:@"INSERT INTO itemdescriptions (Description) VALUES (\"%@\");",item];
+        querySQL = [NSString stringWithFormat:@"INSERT INTO itemdescriptions (Description) VALUES (\"%@\");",itemDescription];
         query_stmt = [querySQL UTF8String];
         
         result = sqlite3_prepare_v2(_database,
                                     query_stmt, -1, &statement, NULL);
         if (result != SQLITE_OK)
         {
-            NSLog(@"Error inserting item with description:%@",item);
+            NSLog(@"Error inserting item with description:%@",itemDescription);
             sqlite3_close(_database);
             return 0;
         }
@@ -182,7 +183,7 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
         sqlite3_finalize(statement);
 
         querySQL = [NSString stringWithFormat:
-                    @"SELECT ItemID, Description FROM itemdescriptions WHERE Description LIKE \"%@\";", item];
+                    @"SELECT ItemID, Description FROM itemdescriptions WHERE Description LIKE \"%@\";", itemDescription];
         
         query_stmt = [querySQL UTF8String];
         
@@ -232,7 +233,48 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
     sqlite3_finalize(statement);
     
     sqlite3_close(_database);
-    return inventoryID;
+    
+    InventoryItem *item = [[InventoryItem alloc] init];
+    [item setInventoryID:inventoryID];
+    [item setCategory:category];
+    [item setDescription:itemDescription];
+    return item;
 }
 
+-(NSArray *)allInventoryItems
+{
+    const char *dbpath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &_database) != SQLITE_OK)
+    {
+        NSLog(@"Could not open database");
+        return 0;
+    }
+    
+    NSMutableArray *inventory = [[NSMutableArray alloc] init];
+    
+    NSString *querySQL = [NSString stringWithFormat:@"SELECT ID,Label,Description FROM inventory JOIN categories USING (categoryID) JOIN itemdescriptions USING (itemID)"];
+    
+    const char *query_stmt = [querySQL UTF8String];
+    sqlite3_stmt *statement;
+
+    NSUInteger result = sqlite3_prepare_v2(_database,
+                                           query_stmt, -1, &statement, NULL);
+    if (result == SQLITE_OK)
+    {
+        while (sqlite3_step(statement) == SQLITE_ROW)
+        {
+            @autoreleasepool {
+                InventoryItem *item = [[InventoryItem alloc] init];
+                [item setInventoryID:sqlite3_column_int(statement, 0)];
+                [item setCategory:[NSString stringWithUTF8String:sqlite3_column_text(statement,1)]];
+                [item setDescription:[NSString stringWithUTF8String:sqlite3_column_text(statement,2)]];
+                [inventory addObject:item];
+            }
+        }
+        sqlite3_finalize(statement);
+    }
+    
+    return inventory;
+}
 @end

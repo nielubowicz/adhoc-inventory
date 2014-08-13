@@ -1,3 +1,5 @@
+@class InventoryItem;
+
 @interface DatabaseManager : NSObject
 {
     
@@ -5,6 +7,7 @@
 
 +(DatabaseManager *)sharedManager;
 
--(NSUInteger)addItem:(NSString *)item category:(NSString *)category;
+-(InventoryItem *)addItem:(NSString *)item category:(NSString *)category;
+-(NSArray *)allInventoryItems;
 
 @end

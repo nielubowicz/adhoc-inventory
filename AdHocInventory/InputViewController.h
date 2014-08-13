@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface InputViewController : UIViewController
 
 @property (strong,nonatomic)IBOutlet UITextField *category;
 @property (strong,nonatomic)IBOutlet UITextField *description;

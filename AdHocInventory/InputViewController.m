@@ -6,15 +6,16 @@
 //  Copyright (c) 2014 Assorted Intelligence. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "InputViewController.h"
 #import "DatabaseManager.h"
 #import "BarcodeGenerator.h"
+#import "InventoryItem.h"
 
-@interface FirstViewController ()
+@interface InputViewController ()
 
 @end
 
-@implementation FirstViewController
+@implementation InputViewController
 
 @synthesize description;
 @synthesize category;
