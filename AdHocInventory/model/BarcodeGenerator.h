@@ -10,4 +10,6 @@
 
 @interface BarcodeGenerator : NSObject
 
++(UIImage *)generateBarcodeForInventoryID:(NSUInteger)inventoryID;
+
 @end

@@ -5,6 +5,6 @@
 
 +(DatabaseManager *)sharedManager;
 
--(void)addItem:(NSString *)item category:(NSString *)category;
+-(NSUInteger)addItem:(NSString *)item category:(NSString *)category;
 
 @end

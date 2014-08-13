@@ -8,6 +8,7 @@
 
 #import "FirstViewController.h"
 #import "DatabaseManager.h"
+#import "BarcodeGenerator.h"
 
 @interface FirstViewController ()
 
@@ -36,12 +37,14 @@
 {
     DatabaseManager *db = [DatabaseManager sharedManager];
 
-    [db addItem:[description text] category:[category text]];
+    NSUInteger inventoryID = [db addItem:[description text] category:[category text]];
     [description setText:@""];
     [category setText:@""];
     
     [description resignFirstResponder];
     [category resignFirstResponder];
+    
+    [barcode setImage:[BarcodeGenerator generateBarcodeForInventoryID:inventoryID]];
 }
 
 @end

@@ -79,14 +79,14 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
 
 #pragma mark -
 #pragma mark Data entry methods
--(void)addItem:(NSString *)item category:(NSString *)category
+-(NSUInteger)addItem:(NSString *)item category:(NSString *)category
 {
     const char *dbpath = [_databasePath UTF8String];
 
     if (sqlite3_open(dbpath, &_database) != SQLITE_OK)
     {
         NSLog(@"Could not open database");
-        return;
+        return 0;
     }
     
     // find category ID
@@ -122,7 +122,7 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
         {
             NSLog(@"Error inserting category with Label:%@",category);
             sqlite3_close(_database);
-            return;
+            return 0;
         }
         sqlite3_step(statement);
         sqlite3_finalize(statement);
@@ -176,7 +176,7 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
         {
             NSLog(@"Error inserting item with description:%@",item);
             sqlite3_close(_database);
-            return;
+            return 0;
         }
         sqlite3_step(statement);
         sqlite3_finalize(statement);
@@ -209,13 +209,30 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
     {
         NSLog(@"Error inserting inventory item");
         sqlite3_close(_database);
-        return;
+        return 0;
     }
     
     sqlite3_step(statement);
     sqlite3_finalize(statement);   
 
+    querySQL = [NSString stringWithFormat:@"SELECT MAX(ID) FROM inventory"];
+    query_stmt = [querySQL UTF8String];
+    
+    result = sqlite3_prepare_v2(_database,
+                                query_stmt, -1, &statement, NULL);
+    if (result != SQLITE_OK)
+    {
+        NSLog(@"Error retrieving inventory item");
+        sqlite3_close(_database);
+        return 0;
+    }
+    
+    sqlite3_step(statement);
+    NSUInteger inventoryID = sqlite3_column_int(statement, 0);
+    sqlite3_finalize(statement);
+    
     sqlite3_close(_database);
+    return inventoryID;
 }
 
 @end

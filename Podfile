@@ -3,8 +3,10 @@
 
 target "AdHocInventory" do
 pod "BSKeyboardControls"
+pod "Cocoa-Touch-Barcodes"
 end
 
 target "AdHocInventory" do
 pod "BSKeyboardControls"
+pod "Cocoa-Touch-Barcodes"
 end
