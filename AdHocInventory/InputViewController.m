@@ -38,14 +38,24 @@
 {
     DatabaseManager *db = [DatabaseManager sharedManager];
 
-    NSUInteger inventoryID = [db addItem:[description text] category:[category text]];
+    if ([[description text] length] == 0)
+    {
+        return;
+    }
+    
+    if ([[category text] length] == 0)
+    {
+        return;
+    }
+    
+    InventoryItem *item = [db addItem:[description text] category:[category text]];
     [description setText:@""];
     [category setText:@""];
     
     [description resignFirstResponder];
     [category resignFirstResponder];
     
-    [barcode setImage:[BarcodeGenerator generateBarcodeForInventoryID:inventoryID]];
+    [barcode setImage:[BarcodeGenerator generateBarcodeForInventoryID:[item inventoryID]]];
 }
 
 @end
