@@ -28,6 +28,7 @@
 		8E4B35EF1999A53F0083D367 /* AdHocInventoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35EE1999A53F0083D367 /* AdHocInventoryTests.m */; };
 		8E4B35F91999B9AF0083D367 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35F81999B9AF0083D367 /* libsqlite3.dylib */; };
 		8E4B35FD1999B9F70083D367 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35FC1999B9F70083D367 /* DatabaseManager.m */; };
+		8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */; };
 		8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */; };
 /* End PBXBuildFile section */
 
@@ -71,8 +72,10 @@
 		8E4B35F81999B9AF0083D367 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		8E4B35FB1999B9F70083D367 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		8E4B35FC1999B9F70083D367 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
-		8ECD47F1199B0AC800480A4C /* BarcodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarcodeGenerator.h; sourceTree = "<group>"; };
-		8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarcodeGenerator.m; sourceTree = "<group>"; };
+		8E83BEF5199C05D100A08BAE /* UIImage+NonInterpolatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NonInterpolatedImage.h"; sourceTree = "<group>"; };
+		8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NonInterpolatedImage.m"; sourceTree = "<group>"; };
+		8ECD47F1199B0AC800480A4C /* BarcodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BarcodeGenerator.h; path = ../model/BarcodeGenerator.h; sourceTree = "<group>"; };
+		8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BarcodeGenerator.m; path = ../model/BarcodeGenerator.m; sourceTree = "<group>"; };
 		A4F6515D4F9047208DC5D55B /* libPods-AdHocInventory.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AdHocInventory.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0F5B90A3CB641F09AB59623 /* Pods-AdHocInventory.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdHocInventory.xcconfig"; path = "Pods/Pods-AdHocInventory.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +142,7 @@
 		8E4B35C31999A53E0083D367 /* AdHocInventory */ = {
 			isa = PBXGroup;
 			children = (
+				8E83BEF1199C054600A08BAE /* barcodes */,
 				8ECD47F0199B0AAD00480A4C /* model */,
 				8E4B35FA1999B9F70083D367 /* datebase */,
 				8E4B35CC1999A53E0083D367 /* AppDelegate.h */,
@@ -195,11 +199,20 @@
 			path = datebase;
 			sourceTree = "<group>";
 		};
+		8E83BEF1199C054600A08BAE /* barcodes */ = {
+			isa = PBXGroup;
+			children = (
+				8E83BEF5199C05D100A08BAE /* UIImage+NonInterpolatedImage.h */,
+				8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */,
+				8ECD47F1199B0AC800480A4C /* BarcodeGenerator.h */,
+				8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */,
+			);
+			path = barcodes;
+			sourceTree = "<group>";
+		};
 		8ECD47F0199B0AAD00480A4C /* model */ = {
 			isa = PBXGroup;
 			children = (
-				8ECD47F1199B0AC800480A4C /* BarcodeGenerator.h */,
-				8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */,
 				8E1B467E199B149B004F3740 /* InventoryItem.h */,
 				8E1B467F199B149B004F3740 /* InventoryItem.m */,
 			);
@@ -345,6 +358,7 @@
 				8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */,
 				8E4B35D71999A53F0083D367 /* InputViewController.m in Sources */,
 				8E4B35FD1999B9F70083D367 /* DatabaseManager.m in Sources */,
+				8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */,
 				8E1B4680199B149B004F3740 /* InventoryItem.m in Sources */,
 				8E4B35CA1999A53E0083D367 /* main.m in Sources */,
 			);

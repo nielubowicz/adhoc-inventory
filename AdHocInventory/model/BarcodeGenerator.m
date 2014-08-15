@@ -7,17 +7,58 @@
 //
 
 #import "BarcodeGenerator.h"
-#import "NKDCode128Barcode.h"
-#import "UIImage-NKDBarcode.h"
+#import <NKDCode128Barcode.h>
+#import <UIImage-NKDBarcode.h>
+#import "InventoryItem.h"
 
 @implementation BarcodeGenerator
 
-+(UIImage *)generateBarcodeForInventoryID:(NSUInteger)inventoryID
+static const char *longFormatString = "Repurpose Project ID:%u\nCat:%s\nDesc:%s";
+static const char *shortFormatString = "Repurpose,%u";
+
++(NKDBarcode *)barcodeForInventoryID:(NSUInteger)inventoryID
 {
-    NKDBarcode *barcode = [[NKDCode128Barcode alloc] initWithContent:[NSString stringWithFormat:@"%u",inventoryID]
+    char buffer[64];
+    sprintf(buffer,shortFormatString,inventoryID);
+    
+    NKDBarcode *barcode = [[NKDCode128Barcode alloc] initWithContent:[NSString stringWithCString:buffer encoding:NSUTF8StringEncoding]
+                                                       printsCaption:YES];
+    
+    return barcode;
+}
+
++(CIImage *)qrcodeImageForInventoryItem:(InventoryItem *)item
+{
+    char buffer[64];
+    sprintf(buffer,longFormatString,[item inventoryID],[[item category] cStringUsingEncoding:NSUTF8StringEncoding],[[item description] cStringUsingEncoding:NSUTF8StringEncoding]);
+    
+    // Need to convert the string to a UTF-8 encoded NSData object
+    NSData *stringData = [[NSString stringWithCString:buffer encoding:NSUTF8StringEncoding] dataUsingEncoding:NSUTF8StringEncoding];
+    
+    // Create the filter
+    CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    // Set the message content and error-correction level
+    [qrFilter setValue:stringData forKey:@"inputMessage"];
+    [qrFilter setValue:@"H" forKey:@"inputCorrectionLevel"];
+    
+    // Send the image back
+    return qrFilter.outputImage;
+}
+
++(UIImage *)barcodeImageForInventoryID:(NSUInteger)inventoryID
+{
+    char buffer[64];
+    sprintf(buffer,shortFormatString,inventoryID);
+    NKDBarcode *barcode = [[NKDCode128Barcode alloc] initWithContent:[NSString stringWithCString:buffer encoding:NSUTF8StringEncoding]
                                                        printsCaption:YES];
     
     return [UIImage imageFromBarcode:barcode];
 }
 
++(NSUInteger)inventoryIDForBarcode:(NKDBarcode *)barcode
+{
+    NSString *barcodeString = [barcode content];
+    NSUInteger inventoryID = atoi([barcodeString UTF8String]);
+    return inventoryID;
+}
 @end

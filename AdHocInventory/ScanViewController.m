@@ -35,7 +35,8 @@
     [self.view addSubview:_highlightView];
     
     _label = [[UILabel alloc] init];
-    _label.frame = CGRectMake(0, self.view.bounds.size.height - 40, self.view.bounds.size.width, 40);
+    _label.frame = CGRectMake(0, self.view.bounds.size.height - 100, self.view.bounds.size.width, 100);
+    _label.numberOfLines = 3;
     _label.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     _label.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _label.textColor = [UIColor whiteColor];
@@ -55,10 +56,10 @@
     }
     
     _output = [[AVCaptureMetadataOutput alloc] init];
-    [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
     [_session addOutput:_output];
     
-    _output.metadataObjectTypes = [_output availableMetadataObjectTypes];
+    [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    [_output setMetadataObjectTypes:[_output availableMetadataObjectTypes]];
     
     _prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
     _prevLayer.frame = self.view.bounds;

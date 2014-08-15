@@ -77,7 +77,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"barcode" forIndexPath:indexPath];
     InventoryItem *item = [_dataArray objectAtIndex:[indexPath row]];
     [[cell textLabel] setText:[NSString stringWithFormat:@"%@, %@",[item description],[item category]]];
-    [[cell imageView] setImage:[BarcodeGenerator generateBarcodeForInventoryID:[item inventoryID]]];
+    CIImage *qr =[BarcodeGenerator qrcodeImageForInventoryItem:item];
+    [[cell imageView] setImage:[UIImage createNonInterpolatedUIImageFromCIImage:qr withScale:1.0]];
     return cell;
 }
 

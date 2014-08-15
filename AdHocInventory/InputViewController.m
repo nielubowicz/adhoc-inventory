@@ -55,7 +55,7 @@
     [description resignFirstResponder];
     [category resignFirstResponder];
     
-    [barcode setImage:[BarcodeGenerator generateBarcodeForInventoryID:[item inventoryID]]];
+    [barcode setImage:[BarcodeGenerator barcodeImageForInventoryID:[item inventoryID]]];
 }
 
 @end

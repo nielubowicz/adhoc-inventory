@@ -7,9 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+@class NKDBarcode;
+@class InventoryItem;
 
 @interface BarcodeGenerator : NSObject
 
-+(UIImage *)generateBarcodeForInventoryID:(NSUInteger)inventoryID;
++(NKDBarcode *)barcodeForInventoryID:(NSUInteger)inventoryID;
++(UIImage *)barcodeImageForInventoryID:(NSUInteger)inventoryID;
++(NSUInteger)inventoryIDForBarcode:(NKDBarcode *)barcode;
++(CIImage *)qrcodeImageForInventoryItem:(InventoryItem *)item;
 
 @end
