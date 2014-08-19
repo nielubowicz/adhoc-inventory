@@ -9,6 +9,7 @@
 #import "ItemViewController.h"
 #import "InventoryItem.h"
 #import "BarcodeGenerator.h"
+#import "DatabaseManager.h"
 
 @interface ItemViewController ()
 
@@ -51,9 +52,8 @@
 
 -(IBAction)sellItem:(id)sender
 {
-    NSLog(@"Not implemented yet. Item will be removed from inventory table or otherwise marked.");
+    [[DatabaseManager sharedManager] sellItem:item];
     [self performSegueWithIdentifier:@"dismiss" sender:_sellButton];
-
 }
 
 /*

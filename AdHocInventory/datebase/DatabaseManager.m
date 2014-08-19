@@ -14,7 +14,7 @@
 #pragma mark Queries
 static char const *createInventoryTable = "CREATE TABLE IF NOT EXISTS inventory (ID INTEGER PRIMARY KEY AUTOINCREMENT, CategoryID INTEGER, ItemID INTEGER, TSReceived DATETIME DEFAULT (strftime('%s', 'now')));";
 
-static char const *createSoldInventoryTable = "CREATE TABLE IF NOT EXISTS soldinventory (ID INTEGER PRIMARY KEY, CategoryID INTEGER, ItemID INTEGER, TSReceived DATETIME, TSSold DATETIME);";
+static char const *createSoldInventoryTable = "CREATE TABLE IF NOT EXISTS soldinventory (ID INTEGER PRIMARY KEY, CategoryID INTEGER, ItemID INTEGER, TSReceived DATETIME, TSSold DATETIME DEFAULT (strftime('%s', 'now')));";
 
 static char const *createCategoryTable = "CREATE TABLE IF NOT EXISTS categories (CategoryID INTEGER PRIMARY KEY AUTOINCREMENT, Label VARCHAR);";
 
@@ -222,6 +222,7 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
     sqlite3_step(statement);
     sqlite3_finalize(statement);   
 
+    // get new autoincremented ID from database
     querySQL = [NSString stringWithFormat:@"SELECT MAX(ID) FROM inventory"];
     query_stmt = [querySQL UTF8String];
     
@@ -245,6 +246,75 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
     [item setCategory:category];
     [item setDescription:itemDescription];
     return item;
+}
+
+-(BOOL)sellItem:(InventoryItem *)item
+{
+    const char *dbpath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &_database) != SQLITE_OK)
+    {
+        NSLog(@"Could not open database");
+        return NO;
+    }
+    
+    sqlite3_stmt    *statement;
+    NSUInteger inventoryID = [item inventoryID];
+    
+    NSUInteger categoryID,descriptionID;
+    long long tsreceived;
+    
+    // get category and description IDs
+    NSString *querySQL = [NSString stringWithFormat:@"SELECT CategoryID, ItemID, TSReceived FROM inventory WHERE ID = %d", inventoryID];
+    
+    const char *query_stmt = [querySQL UTF8String];
+    
+    NSUInteger result = sqlite3_prepare_v2(_database,
+                                query_stmt, -1, &statement, NULL);
+    if (result == SQLITE_OK)
+    {
+        result = sqlite3_step(statement);
+        if (result == SQLITE_ROW)
+        {
+            categoryID = sqlite3_column_int(statement, 0);
+            descriptionID = sqlite3_column_int(statement, 1);
+            tsreceived = sqlite3_column_int64(statement,2);
+        }
+        sqlite3_finalize(statement);
+    }
+
+    sqlite3_exec(_database, "BEGIN TRANSACTION;", NULL, NULL, NULL);
+    
+    // insert into soldinventory (inventoryID,categoryID,descriptionID,tsreceived)
+    querySQL = [NSString stringWithFormat:@"INSERT INTO soldinventory (ID, CategoryID, ItemID,TSReceived) VALUES (%d,%d,%d,%lld)", inventoryID,categoryID,descriptionID,tsreceived];
+    query_stmt = [querySQL UTF8String];
+    
+    result = sqlite3_exec(_database,query_stmt, NULL, &statement, NULL);
+    if (result != SQLITE_OK)
+    {
+        NSLog(@"Failed to insert into soldinventory with error: %s", sqlite3_errmsg(_database));
+        return NO;
+    }
+    
+    // delete from inventory
+    querySQL = [NSString stringWithFormat:@"DELETE FROM inventory WHERE ID = %d", inventoryID];
+    query_stmt = [querySQL UTF8String];
+    
+    result = sqlite3_exec(_database,query_stmt, NULL, &statement, NULL);
+    if (result != SQLITE_OK)
+    {
+        NSLog(@"Failed to delete from inventory with error: %s", sqlite3_errmsg(_database));
+        return NO;
+    }
+    
+    result = sqlite3_exec(_database, "COMMIT TRANSACTION;", NULL, NULL, NULL);
+    if (result != SQLITE_OK)
+    {
+        NSLog(@"Transaction failed to commit with error: %s", sqlite3_errmsg(_database));
+        return NO;
+    }
+    
+    return YES;
 }
 
 -(NSArray *)allInventoryItems
