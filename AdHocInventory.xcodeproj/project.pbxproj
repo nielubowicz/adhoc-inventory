@@ -10,6 +10,7 @@
 		5F532C42DA60405F9E9E34F3 /* libPods-AdHocInventory.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4F6515D4F9047208DC5D55B /* libPods-AdHocInventory.a */; };
 		8E1B4680199B149B004F3740 /* InventoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B467F199B149B004F3740 /* InventoryItem.m */; };
 		8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B4682199B29C4004F3740 /* ListViewController.m */; };
+		8E294404199EF8220010A22A /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E294403199EF8220010A22A /* ItemViewController.m */; };
 		8E4B35BE1999A53E0083D367 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35BD1999A53E0083D367 /* Foundation.framework */; };
 		8E4B35C01999A53E0083D367 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35BF1999A53E0083D367 /* CoreGraphics.framework */; };
 		8E4B35C21999A53E0083D367 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35C11999A53E0083D367 /* UIKit.framework */; };
@@ -28,6 +29,8 @@
 		8E4B35EF1999A53F0083D367 /* AdHocInventoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35EE1999A53F0083D367 /* AdHocInventoryTests.m */; };
 		8E4B35F91999B9AF0083D367 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35F81999B9AF0083D367 /* libsqlite3.dylib */; };
 		8E4B35FD1999B9F70083D367 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35FC1999B9F70083D367 /* DatabaseManager.m */; };
+		8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5A919A2D4490034FF50 /* DismissSegue.m */; };
+		8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */; };
 		8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */; };
 		8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */; };
 /* End PBXBuildFile section */
@@ -47,6 +50,8 @@
 		8E1B467F199B149B004F3740 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
 		8E1B4681199B29C4004F3740 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		8E1B4682199B29C4004F3740 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
+		8E294402199EF8220010A22A /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
+		8E294403199EF8220010A22A /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		8E4B35BA1999A53E0083D367 /* AdHocInventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdHocInventory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E4B35BD1999A53E0083D367 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8E4B35BF1999A53E0083D367 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -72,6 +77,10 @@
 		8E4B35F81999B9AF0083D367 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		8E4B35FB1999B9F70083D367 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		8E4B35FC1999B9F70083D367 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
+		8E50A5A819A2D4490034FF50 /* DismissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissSegue.h; sourceTree = "<group>"; };
+		8E50A5A919A2D4490034FF50 /* DismissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissSegue.m; sourceTree = "<group>"; };
+		8E50A5AB19A3959A0034FF50 /* UIColor+RepurposeColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RepurposeColors.h"; sourceTree = "<group>"; };
+		8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RepurposeColors.m"; sourceTree = "<group>"; };
 		8E83BEF5199C05D100A08BAE /* UIImage+NonInterpolatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NonInterpolatedImage.h"; sourceTree = "<group>"; };
 		8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NonInterpolatedImage.m"; sourceTree = "<group>"; };
 		8ECD47F1199B0AC800480A4C /* BarcodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BarcodeGenerator.h; path = ../model/BarcodeGenerator.h; sourceTree = "<group>"; };
@@ -142,6 +151,7 @@
 		8E4B35C31999A53E0083D367 /* AdHocInventory */ = {
 			isa = PBXGroup;
 			children = (
+				8E50A5A719A2D4030034FF50 /* ui */,
 				8E83BEF1199C054600A08BAE /* barcodes */,
 				8ECD47F0199B0AAD00480A4C /* model */,
 				8E4B35FA1999B9F70083D367 /* datebase */,
@@ -151,6 +161,8 @@
 				8E4B35D21999A53F0083D367 /* Main_iPad.storyboard */,
 				8E4B35D51999A53F0083D367 /* InputViewController.h */,
 				8E4B35D61999A53F0083D367 /* InputViewController.m */,
+				8E294402199EF8220010A22A /* ItemViewController.h */,
+				8E294403199EF8220010A22A /* ItemViewController.m */,
 				8E1B4681199B29C4004F3740 /* ListViewController.h */,
 				8E1B4682199B29C4004F3740 /* ListViewController.m */,
 				8E4B35D81999A53F0083D367 /* ScanViewController.h */,
@@ -197,6 +209,17 @@
 				8E4B35FC1999B9F70083D367 /* DatabaseManager.m */,
 			);
 			path = datebase;
+			sourceTree = "<group>";
+		};
+		8E50A5A719A2D4030034FF50 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				8E50A5AB19A3959A0034FF50 /* UIColor+RepurposeColors.h */,
+				8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */,
+				8E50A5A819A2D4490034FF50 /* DismissSegue.h */,
+				8E50A5A919A2D4490034FF50 /* DismissSegue.m */,
+			);
+			path = ui;
 			sourceTree = "<group>";
 		};
 		8E83BEF1199C054600A08BAE /* barcodes */ = {
@@ -353,12 +376,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E4B35DA1999A53F0083D367 /* ScanViewController.m in Sources */,
+				8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */,
 				8E4B35CE1999A53E0083D367 /* AppDelegate.m in Sources */,
 				8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */,
 				8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */,
 				8E4B35D71999A53F0083D367 /* InputViewController.m in Sources */,
 				8E4B35FD1999B9F70083D367 /* DatabaseManager.m in Sources */,
+				8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */,
 				8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */,
+				8E294404199EF8220010A22A /* ItemViewController.m in Sources */,
 				8E1B4680199B149B004F3740 /* InventoryItem.m in Sources */,
 				8E4B35CA1999A53E0083D367 /* main.m in Sources */,
 			);
