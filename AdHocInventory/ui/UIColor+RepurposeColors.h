@@ -10,4 +10,6 @@
 
 @interface UIColor (RepurposeColors)
 
++(UIColor *)lightTealColor;
+
 @end

@@ -10,4 +10,8 @@
 
 @implementation UIColor (RepurposeColors)
 
++(UIColor *)lightTealColor
+{
+    return [UIColor colorWithHue:184.0/255.0 saturation:0.75f brightness:0.79f alpha:1.0];
+}
 @end
