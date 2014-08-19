@@ -7,12 +7,16 @@
 //
 
 #import "ItemViewController.h"
+#import "InventoryItem.h"
+#import "BarcodeGenerator.h"
 
 @interface ItemViewController ()
 
 @end
 
 @implementation ItemViewController
+
+@synthesize item;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,12 +31,29 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [_categoryLabel setText:[item category]];
+    [_descriptionLabel setText:[item description]];
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEE HH:mm, MM/d/yyyy"];
+    [_dateReceivedLabel setText:[formatter stringFromDate:[item dateReceived]]];
+    
+    [_barcodeView setImage:[UIImage createNonInterpolatedUIImageFromCIImage:[BarcodeGenerator qrcodeImageForInventoryItem:item]
+                                                                  withScale:1.0]];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)sellItem:(id)sender
+{
+    NSLog(@"Not implemented yet. Item will be removed from inventory table or otherwise marked.");
+    [self performSegueWithIdentifier:@"dismiss" sender:_sellButton];
+
 }
 
 /*
