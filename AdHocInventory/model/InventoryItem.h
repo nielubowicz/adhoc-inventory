@@ -13,5 +13,6 @@
 @property(nonatomic)NSUInteger inventoryID;
 @property(strong,nonatomic)NSString *category;
 @property(strong,nonatomic)NSString *description;
+@property(strong,nonatomic)NSDate *dateReceived;
 
 @end

@@ -17,6 +17,6 @@
 @synthesize inventoryID;
 @synthesize category;
 @synthesize description;
-
+@synthesize dateReceived;
 
 @end

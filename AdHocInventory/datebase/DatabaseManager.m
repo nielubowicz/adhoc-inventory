@@ -12,7 +12,9 @@
 @implementation DatabaseManager
 
 #pragma mark Queries
-static char const *createInventoryTable = "CREATE TABLE IF NOT EXISTS inventory (ID INTEGER PRIMARY KEY AUTOINCREMENT, CategoryID INTEGER, ItemID INTEGER, DateReceived DATE);";
+static char const *createInventoryTable = "CREATE TABLE IF NOT EXISTS inventory (ID INTEGER PRIMARY KEY AUTOINCREMENT, CategoryID INTEGER, ItemID INTEGER, TSReceived DATETIME DEFAULT (strftime('%s', 'now')));";
+
+static char const *createSoldInventoryTable = "CREATE TABLE IF NOT EXISTS soldinventory (ID INTEGER PRIMARY KEY, CategoryID INTEGER, ItemID INTEGER, TSReceived DATETIME, TSSold DATETIME);";
 
 static char const *createCategoryTable = "CREATE TABLE IF NOT EXISTS categories (CategoryID INTEGER PRIMARY KEY AUTOINCREMENT, Label VARCHAR);";
 
@@ -61,6 +63,10 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
                 if(sqlite3_exec(_database,createInventoryTable,NULL,NULL,&errMsg) != SQLITE_OK)
                 {
                     NSLog(@"Error:%s running statement:%s",errMsg,createInventoryTable);
+                }
+                if(sqlite3_exec(_database,createSoldInventoryTable,NULL,NULL,&errMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Error:%s running statement:%s",errMsg,createSoldInventoryTable);
                 }
                 sqlite3_close(_database);
             }
@@ -253,7 +259,7 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
     
     NSMutableArray *inventory = [[NSMutableArray alloc] init];
     
-    NSString *querySQL = [NSString stringWithFormat:@"SELECT ID,Label,Description FROM inventory JOIN categories USING (categoryID) JOIN itemdescriptions USING (itemID)"];
+    NSString *querySQL = [NSString stringWithFormat:@"SELECT ID,Label,Description,TSReceived FROM inventory JOIN categories USING (categoryID) JOIN itemdescriptions USING (itemID)"];
     
     const char *query_stmt = [querySQL UTF8String];
     sqlite3_stmt *statement;
@@ -269,6 +275,7 @@ static char const *createItemDescriptionTable = "CREATE TABLE IF NOT EXISTS item
                 [item setInventoryID:sqlite3_column_int(statement, 0)];
                 [item setCategory:[NSString stringWithUTF8String:sqlite3_column_text(statement,1)]];
                 [item setDescription:[NSString stringWithUTF8String:sqlite3_column_text(statement,2)]];
+                [item setDateReceived:[NSDate dateWithTimeIntervalSince1970:sqlite3_column_int64(statement,3)]];
                 [inventory addObject:item];
             }
         }
