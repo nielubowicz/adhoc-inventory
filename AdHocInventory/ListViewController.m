@@ -10,6 +10,7 @@
 #import "DatabaseManager.h"
 #import "InventoryItem.h"
 #import "BarcodeGenerator.h"
+#import "ItemViewController.h"
 
 @interface ListViewController ()
 
@@ -39,7 +40,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -47,20 +48,20 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"showItem"])
+    {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        ItemViewController *controller = (ItemViewController *)navController.topViewController;
+        [controller setItem:[_dataArray objectAtIndex:[indexPath row]]];
+    }
 }
-*/
 
 #pragma mark Data methods
 - (void)refreshData
 {
     _dataArray = [[DatabaseManager sharedManager] allInventoryItems];
     [[self tableView] reloadData];    
-}
-
-#pragma mark UITableViewDelegate methods
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-    
 }
 
 #pragma mark UITableViewDataSource methods
