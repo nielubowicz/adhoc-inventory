@@ -7,12 +7,17 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"apiKeys" ofType:@"plist"];
+    NSDictionary *infoDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    [Parse setApplicationId:infoDictionary[@"PARSE_APPLICATION_ID"] clientKey:infoDictionary[@"PARSE_CLIENT_KEY"]];
+    
     return YES;
 }
 							
