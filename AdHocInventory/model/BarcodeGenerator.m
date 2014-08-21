@@ -61,4 +61,18 @@ static const char *shortFormatString = "Repurpose,%u";
     NSUInteger inventoryID = atoi([barcodeString UTF8String]);
     return inventoryID;
 }
+
++(NSUInteger)inventoryIDForFormatString:(NSString *)str shortFormat:(BOOL)isShort
+{
+    NSUInteger inventoryID;
+    
+    NSScanner *scanner = [[NSScanner alloc] initWithString:str];
+    NSString  *formatString = (isShort ? @"Repurpose:" : @"Repurpose Project ID:");
+    
+    [scanner scanString:formatString intoString:NULL];
+    [scanner scanHexInt:&inventoryID];
+    
+    return inventoryID;
+}
+
 @end

@@ -15,6 +15,7 @@
 +(NKDBarcode *)barcodeForInventoryID:(NSUInteger)inventoryID;
 +(UIImage *)barcodeImageForInventoryID:(NSUInteger)inventoryID;
 +(NSUInteger)inventoryIDForBarcode:(NKDBarcode *)barcode;
++(NSUInteger)inventoryIDForFormatString:(NSString *)str shortFormat:(BOOL)isShort;
 +(CIImage *)qrcodeImageForInventoryItem:(InventoryItem *)item;
 
 @end

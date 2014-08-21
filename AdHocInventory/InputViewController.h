@@ -10,9 +10,9 @@
 
 @interface InputViewController : UIViewController
 
-@property (strong,nonatomic)IBOutlet UITextField *category;
-@property (strong,nonatomic)IBOutlet UITextField *description;
-@property (strong,nonatomic)IBOutlet UIImageView *barcode;
+@property (weak,nonatomic)IBOutlet UITextField *category;
+@property (weak,nonatomic)IBOutlet UITextField *description;
+@property (weak,nonatomic)IBOutlet UIImageView *barcode;
 
 -(IBAction)addItem:(id)sender;
 

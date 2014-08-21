@@ -13,11 +13,11 @@
 
 @property (nonatomic) InventoryItem *item;
 
-@property (nonatomic) IBOutlet UILabel *categoryLabel;
-@property (nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (nonatomic) IBOutlet UILabel *dateReceivedLabel;
-@property (nonatomic) IBOutlet UIImageView *barcodeView;
-@property (nonatomic) IBOutlet UIButton *sellButton;
+@property (weak,nonatomic) IBOutlet UILabel *categoryLabel;
+@property (weak,nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak,nonatomic) IBOutlet UILabel *dateReceivedLabel;
+@property (weak,nonatomic) IBOutlet UIImageView *barcodeView;
+@property (weak,nonatomic) IBOutlet UIButton *sellButton;
 
 -(IBAction)sellItem:(id)sender;
 
