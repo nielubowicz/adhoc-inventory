@@ -25,3 +25,6 @@ DerivedData
 #
 Pods/
 Podfile.lock
+
+# api keys
+apiKeys.plist
