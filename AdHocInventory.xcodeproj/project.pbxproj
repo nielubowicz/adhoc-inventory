@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5F532C42DA60405F9E9E34F3 /* libPods-AdHocInventory.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4F6515D4F9047208DC5D55B /* libPods-AdHocInventory.a */; };
-		8E14BFFA19A69005001E67DF /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14BFF919A69004001E67DF /* Parse.framework */; };
 		8E14C00319A6908E001E67DF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14BFFB19A6908E001E67DF /* AudioToolbox.framework */; };
 		8E14C00419A6908E001E67DF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14BFFC19A6908E001E67DF /* CFNetwork.framework */; };
 		8E14C00519A6908E001E67DF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14BFFD19A6908E001E67DF /* CoreLocation.framework */; };
@@ -24,6 +23,8 @@
 		8E14C01519A69734001E67DF /* FBMissingSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E14C01419A69734001E67DF /* FBMissingSymbols.m */; };
 		8E1B4680199B149B004F3740 /* InventoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B467F199B149B004F3740 /* InventoryItem.m */; };
 		8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B4682199B29C4004F3740 /* ListViewController.m */; };
+		8E26F17A19A7AB7000EB9C04 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E26F17919A7AB7000EB9C04 /* Parse.framework */; };
+		8E26F17E19A7AF5700EB9C04 /* ParseDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E26F17D19A7AF5700EB9C04 /* ParseDefinitions.m */; };
 		8E294404199EF8220010A22A /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E294403199EF8220010A22A /* ItemViewController.m */; };
 		8E4B35BE1999A53E0083D367 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35BD1999A53E0083D367 /* Foundation.framework */; };
 		8E4B35C01999A53E0083D367 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35BF1999A53E0083D367 /* CoreGraphics.framework */; };
@@ -41,8 +42,7 @@
 		8E4B35E51999A53F0083D367 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35C11999A53E0083D367 /* UIKit.framework */; };
 		8E4B35ED1999A53F0083D367 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E4B35EB1999A53F0083D367 /* InfoPlist.strings */; };
 		8E4B35EF1999A53F0083D367 /* AdHocInventoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35EE1999A53F0083D367 /* AdHocInventoryTests.m */; };
-		8E4B35F91999B9AF0083D367 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35F81999B9AF0083D367 /* libsqlite3.dylib */; };
-		8E4B35FD1999B9F70083D367 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35FC1999B9F70083D367 /* DatabaseManager.m */; };
+		8E4B35FD1999B9F70083D367 /* InventoryDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35FC1999B9F70083D367 /* InventoryDataManager.m */; };
 		8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5A919A2D4490034FF50 /* DismissSegue.m */; };
 		8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */; };
 		8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */; };
@@ -60,7 +60,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8E14BFF919A69004001E67DF /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../Parse.framework; sourceTree = "<group>"; };
 		8E14BFFB19A6908E001E67DF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8E14BFFC19A6908E001E67DF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8E14BFFD19A6908E001E67DF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -78,6 +77,9 @@
 		8E1B467F199B149B004F3740 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
 		8E1B4681199B29C4004F3740 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		8E1B4682199B29C4004F3740 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
+		8E26F17919A7AB7000EB9C04 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		8E26F17C19A7AF5700EB9C04 /* ParseDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDefinitions.h; sourceTree = "<group>"; };
+		8E26F17D19A7AF5700EB9C04 /* ParseDefinitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDefinitions.m; sourceTree = "<group>"; };
 		8E294402199EF8220010A22A /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
 		8E294403199EF8220010A22A /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		8E4B35BA1999A53E0083D367 /* AdHocInventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdHocInventory.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,8 +105,8 @@
 		8E4B35EC1999A53F0083D367 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8E4B35EE1999A53F0083D367 /* AdHocInventoryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdHocInventoryTests.m; sourceTree = "<group>"; };
 		8E4B35F81999B9AF0083D367 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		8E4B35FB1999B9F70083D367 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
-		8E4B35FC1999B9F70083D367 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
+		8E4B35FB1999B9F70083D367 /* InventoryDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryDataManager.h; sourceTree = "<group>"; };
+		8E4B35FC1999B9F70083D367 /* InventoryDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryDataManager.m; sourceTree = "<group>"; };
 		8E50A5A819A2D4490034FF50 /* DismissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissSegue.h; sourceTree = "<group>"; };
 		8E50A5A919A2D4490034FF50 /* DismissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissSegue.m; sourceTree = "<group>"; };
 		8E50A5AB19A3959A0034FF50 /* UIColor+RepurposeColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RepurposeColors.h"; sourceTree = "<group>"; };
@@ -128,11 +130,10 @@
 				8E14C00419A6908E001E67DF /* CFNetwork.framework in Frameworks */,
 				8E4B35C01999A53E0083D367 /* CoreGraphics.framework in Frameworks */,
 				8E14C00519A6908E001E67DF /* CoreLocation.framework in Frameworks */,
+				8E26F17A19A7AB7000EB9C04 /* Parse.framework in Frameworks */,
 				8E4B35BE1999A53E0083D367 /* Foundation.framework in Frameworks */,
-				8E4B35F91999B9AF0083D367 /* libsqlite3.dylib in Frameworks */,
 				8E14C00619A6908E001E67DF /* libz.dylib in Frameworks */,
 				8E14C00719A6908E001E67DF /* MobileCoreServices.framework in Frameworks */,
-				8E14BFFA19A69005001E67DF /* Parse.framework in Frameworks */,
 				8E14C00819A6908E001E67DF /* QuartzCore.framework in Frameworks */,
 				8E14C00E19A69473001E67DF /* Social.framework in Frameworks */,
 				8E14C00919A6908E001E67DF /* StoreKit.framework in Frameworks */,
@@ -178,6 +179,7 @@
 		8E4B35BC1999A53E0083D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E26F17919A7AB7000EB9C04 /* Parse.framework */,
 				8E14C01119A69520001E67DF /* Security.framework */,
 				8E14C00F19A694BD001E67DF /* Accounts.framework */,
 				8E14C00D19A69473001E67DF /* Social.framework */,
@@ -189,7 +191,6 @@
 				8E14C00019A6908E001E67DF /* QuartzCore.framework */,
 				8E14C00119A6908E001E67DF /* StoreKit.framework */,
 				8E14C00219A6908E001E67DF /* SystemConfiguration.framework */,
-				8E14BFF919A69004001E67DF /* Parse.framework */,
 				8E4B35F81999B9AF0083D367 /* libsqlite3.dylib */,
 				8E4B35BD1999A53E0083D367 /* Foundation.framework */,
 				8E4B35BF1999A53E0083D367 /* CoreGraphics.framework */,
@@ -234,6 +235,8 @@
 				8E4B35C91999A53E0083D367 /* main.m */,
 				8E4B35CB1999A53E0083D367 /* AdHocInventory-Prefix.pch */,
 				8E14C01419A69734001E67DF /* FBMissingSymbols.m */,
+				8E26F17C19A7AF5700EB9C04 /* ParseDefinitions.h */,
+				8E26F17D19A7AF5700EB9C04 /* ParseDefinitions.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -259,8 +262,8 @@
 		8E4B35FA1999B9F70083D367 /* datebase */ = {
 			isa = PBXGroup;
 			children = (
-				8E4B35FB1999B9F70083D367 /* DatabaseManager.h */,
-				8E4B35FC1999B9F70083D367 /* DatabaseManager.m */,
+				8E4B35FB1999B9F70083D367 /* InventoryDataManager.h */,
+				8E4B35FC1999B9F70083D367 /* InventoryDataManager.m */,
 			);
 			path = datebase;
 			sourceTree = "<group>";
@@ -437,7 +440,8 @@
 				8E14C01519A69734001E67DF /* FBMissingSymbols.m in Sources */,
 				8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */,
 				8E4B35D71999A53F0083D367 /* InputViewController.m in Sources */,
-				8E4B35FD1999B9F70083D367 /* DatabaseManager.m in Sources */,
+				8E4B35FD1999B9F70083D367 /* InventoryDataManager.m in Sources */,
+				8E26F17E19A7AF5700EB9C04 /* ParseDefinitions.m in Sources */,
 				8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */,
 				8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */,
 				8E294404199EF8220010A22A /* ItemViewController.m in Sources */,
@@ -582,6 +586,7 @@
 					"$(inherited)",
 					/Users/Bowicz/Code,
 					Projects,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AdHocInventory/AdHocInventory-Prefix.pch";
@@ -601,6 +606,7 @@
 					"$(inherited)",
 					/Users/Bowicz/Code,
 					Projects,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AdHocInventory/AdHocInventory-Prefix.pch";
