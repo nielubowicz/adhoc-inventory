@@ -7,7 +7,7 @@
 //
 
 #import "InputViewController.h"
-#import "DatabaseManager.h"
+#import "InventoryDataManager.h"
 #import "BarcodeGenerator.h"
 #import "InventoryItem.h"
 
@@ -25,7 +25,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemAdded:) name:kInventoryItemAddedNotification object:nil];
+}
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,7 +41,7 @@
 
 -(IBAction)addItem:(id)sender
 {
-    DatabaseManager *db = [DatabaseManager sharedManager];
+    InventoryDataManager *db = [InventoryDataManager sharedManager];
 
     if ([[description text] length] == 0)
     {
@@ -48,14 +53,19 @@
         return;
     }
     
-    InventoryItem *item = [db addItem:[description text] category:[category text]];
+    [db addItem:[description text] category:[category text]];
     [description setText:@""];
     [category setText:@""];
     
     [description resignFirstResponder];
     [category resignFirstResponder];
-    
-    [barcode setImage:[BarcodeGenerator barcodeImageForInventoryID:[item inventoryID]]];
+}
+
+-(void)itemAdded:(NSNotification *)notification
+{
+    InventoryItem *item = [notification object];
+    CIImage *qrcode = [BarcodeGenerator qrcodeImageForInventoryItem:item];
+    [barcode setImage:[UIImage createNonInterpolatedUIImageFromCIImage:qrcode withScale:1.0f]];
 }
 
 @end

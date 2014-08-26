@@ -7,7 +7,7 @@
 //
 
 #import "ListViewController.h"
-#import "DatabaseManager.h"
+#import "InventoryDataManager.h"
 #import "InventoryItem.h"
 #import "BarcodeGenerator.h"
 #import "ItemViewController.h"
@@ -20,18 +20,27 @@
 
 @implementation ListViewController
 
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder])
+    {
+        [self setParseClassName:kPFInventoryClassName];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
     // refreshData - load all inventory data into an array
-    [self refreshData];
+    [self loadObjects];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,7 +48,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 #pragma mark - Navigation
 
@@ -53,31 +61,31 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         ItemViewController *controller = (ItemViewController *)navController.topViewController;
-        [controller setItem:[_dataArray objectAtIndex:[indexPath row]]];
+        PFObject *inventoryItem = [self objectAtIndexPath:indexPath];
+        
+        InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
+        [controller setItem:item];
     }
 }
 
-#pragma mark Data methods
-- (void)refreshData
+- (PFQuery *)queryForTable;
 {
-    _dataArray = [[DatabaseManager sharedManager] allInventoryItems];
-    [[self tableView] reloadData];    
-}
-
-#pragma mark UITableViewDataSource methods
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-{
-    return [_dataArray count];
+    PFQuery *query = [PFQuery queryWithClassName:kPFInventoryClassName];
+    [query whereKeyDoesNotExist:@"soldItem"];
+    return query;
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (PFTableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+                        object:(PFObject *)object
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"barcode" forIndexPath:indexPath];
-    InventoryItem *item = [_dataArray objectAtIndex:[indexPath row]];
-    [[cell textLabel] setText:[NSString stringWithFormat:@"%@, %@",[item description],[item category]]];
+    PFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"barcode" forIndexPath:indexPath];
+    
+    InventoryItem *item = [[InventoryItem alloc] initWithPFObject:object];
+    
+    [[cell textLabel] setText:[NSString stringWithFormat:@"%@, %@",[item itemDescription],[item category]]];
     CIImage *qr =[BarcodeGenerator qrcodeImageForInventoryItem:item];
     [[cell imageView] setImage:[UIImage createNonInterpolatedUIImageFromCIImage:qr withScale:1.0]];
     return cell;

@@ -1,15 +1,13 @@
 @class InventoryItem;
 
-@interface DatabaseManager : NSObject
-{
-    
-}
+@interface InventoryDataManager : NSObject
 
-+(DatabaseManager *)sharedManager;
++(InventoryDataManager *)sharedManager;
 
--(InventoryItem *)addItem:(NSString *)item category:(NSString *)category;
--(BOOL)sellItem:(InventoryItem *)item;
+-(void)addItem:(NSString *)item category:(NSString *)category; // asynchronous. Register for kInventoryItemAddedNotification notifications
+-(void)sellItem:(InventoryItem *)item; // asynchronous. Register for kInventoryItemSoldNotification notifications
 
--(NSArray *)allInventoryItems;
+FOUNDATION_EXPORT NSString const *kInventoryItemAddedNotification;
+FOUNDATION_EXPORT NSString const *kInventoryItemSoldNotification;
 
 @end

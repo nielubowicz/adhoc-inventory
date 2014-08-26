@@ -9,7 +9,7 @@
 #import "ItemViewController.h"
 #import "InventoryItem.h"
 #import "BarcodeGenerator.h"
-#import "DatabaseManager.h"
+#import "InventoryDataManager.h"
 
 @interface ItemViewController ()
 
@@ -28,13 +28,18 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [_categoryLabel setText:[item category]];
-    [_descriptionLabel setText:[item description]];
+    [_descriptionLabel setText:[item itemDescription]];
 
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"EEE HH:mm, MM/d/yyyy"];
@@ -52,7 +57,15 @@
 
 -(IBAction)sellItem:(id)sender
 {
-    [[DatabaseManager sharedManager] sellItem:item];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemSold:) name:kInventoryItemSoldNotification object:nil];
+    
+    [[InventoryDataManager sharedManager] sellItem:item];
+}
+
+-(void)itemSold:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self performSegueWithIdentifier:@"dismiss" sender:_sellButton];
 }
 
