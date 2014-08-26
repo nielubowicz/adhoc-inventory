@@ -29,6 +29,12 @@ static const char *shortFormatString = "Repurpose,%u";
 
 +(CIImage *)qrcodeImageForInventoryItem:(InventoryItem *)item
 {
+    if (item == nil)
+    {
+        NSLog(@"Item for %s was nil", __PRETTY_FUNCTION__);
+        return nil;
+    }
+    
     char buffer[64];
     sprintf(buffer,longFormatString,[item inventoryID],[[item category] cStringUsingEncoding:NSUTF8StringEncoding],[[item description] cStringUsingEncoding:NSUTF8StringEncoding]);
     

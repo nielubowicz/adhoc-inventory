@@ -12,6 +12,11 @@
 
 +(UIImage *)createNonInterpolatedUIImageFromCIImage:(CIImage *)image withScale:(CGFloat)scale
 {
+    if (image == nil)
+    {
+        return nil;
+    }
+    
     // Render the CIImage into a CGImage
     CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:image fromRect:image.extent];
     
