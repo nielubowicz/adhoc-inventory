@@ -7,7 +7,11 @@
 //
 
 #import "ScanViewController.h"
+#import "BarcodeGenerator.h"
+#import "ItemViewController.h"
+#import "InventoryItem.h"
 #import <AVFoundation/AVFoundation.h>
+#import <Parse/Parse.h>
 
 @interface ScanViewController () <AVCaptureMetadataOutputObjectsDelegate>
 {
@@ -17,8 +21,8 @@
     AVCaptureMetadataOutput *_output;
     AVCaptureVideoPreviewLayer *_prevLayer;
     
-    UIView *_highlightView;
-    UILabel *_label;
+    UIView *_highlightView;    
+    NSString *scannedItemID;
 }
 @end
 
@@ -34,15 +38,12 @@
     _highlightView.layer.borderWidth = 3;
     [self.view addSubview:_highlightView];
     
-    _label = [[UILabel alloc] init];
-    _label.frame = CGRectMake(0, self.view.bounds.size.height - 100, self.view.bounds.size.width, 100);
     _label.numberOfLines = 3;
     _label.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     _label.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _label.textColor = [UIColor whiteColor];
     _label.textAlignment = NSTextAlignmentCenter;
     _label.text = @"(none)";
-    [self.view addSubview:_label];
     
     _session = [[AVCaptureSession alloc] init];
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -101,6 +102,9 @@
         if (detectionString != nil)
         {
             _label.text = detectionString;
+            
+            // find inventoryID
+            [self setItemIDFromDetectionString:detectionString];
             break;
         }
         else
@@ -108,6 +112,40 @@
     }
     
     _highlightView.frame = highlightViewRect;
+    _selectItem.layer.borderColor = [UIColor greenColor].CGColor;
+}
+
+-(void)setItemIDFromDetectionString:(NSString *)string
+{
+    scannedItemID = [BarcodeGenerator inventoryIDForFormatString:string shortFormat:NO];
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ([identifier isEqualToString:@"showItem"])
+    {
+        return (scannedItemID != nil);
+    }
+    
+    return YES;
+}
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"showItem"])
+    {
+        PFQuery *query = [PFQuery queryWithClassName:kPFInventoryClassName];
+        PFObject *object = [query getObjectWithId:scannedItemID];
+        
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        ItemViewController *controller = (ItemViewController *)navController.topViewController;
+        
+        InventoryItem *item = [[InventoryItem alloc] initWithPFObject:object];
+        [controller setItem:item];
+    }
 }
 
 @end
