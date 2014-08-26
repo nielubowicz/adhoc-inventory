@@ -7,12 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+@class PFObject;
 
 @interface InventoryItem : NSObject
 
-@property(nonatomic)NSUInteger inventoryID;
+-(id)initWithPFObject:(PFObject *)object;
+
+@property(strong,nonatomic)NSString *inventoryID;
 @property(strong,nonatomic)NSString *category;
-@property(strong,nonatomic)NSString *description;
+@property(strong,nonatomic)NSString *itemDescription;
 @property(strong,nonatomic)NSDate *dateReceived;
+@property(strong,nonatomic)NSDate *dateSold;
 
 @end

@@ -13,10 +13,13 @@
 
 @implementation BarcodeGenerator
 
-static const char *longFormatString = "Repurpose Project ID:%u\nCat:%s\nDesc:%s";
-static const char *shortFormatString = "Repurpose,%u";
+static const char *longFormatString = "AdHocInventory ID:%s\nCat:%s\nDesc:%s";
+static const char *shortFormatString = "AdHocInventory:%s";
+static NSString *longScanFormatString = @"AdHocInventory ID:";
+static NSString *shortScanFormatString = @"AdHocInventory:";
 
-+(NKDBarcode *)barcodeForInventoryID:(NSUInteger)inventoryID
+
++(NKDBarcode *)barcodeForInventoryID:(NSString *)inventoryID
 {
     char buffer[64];
     sprintf(buffer,shortFormatString,inventoryID);
@@ -36,7 +39,7 @@ static const char *shortFormatString = "Repurpose,%u";
     }
     
     char buffer[64];
-    sprintf(buffer,longFormatString,[item inventoryID],[[item category] cStringUsingEncoding:NSUTF8StringEncoding],[[item description] cStringUsingEncoding:NSUTF8StringEncoding]);
+    sprintf(buffer,longFormatString,[[item inventoryID] cStringUsingEncoding:NSUTF8StringEncoding],[[item category] cStringUsingEncoding:NSUTF8StringEncoding],[[item itemDescription] cStringUsingEncoding:NSUTF8StringEncoding]);
     
     // Need to convert the string to a UTF-8 encoded NSData object
     NSData *stringData = [[NSString stringWithCString:buffer encoding:NSUTF8StringEncoding] dataUsingEncoding:NSUTF8StringEncoding];
@@ -51,7 +54,7 @@ static const char *shortFormatString = "Repurpose,%u";
     return qrFilter.outputImage;
 }
 
-+(UIImage *)barcodeImageForInventoryID:(NSUInteger)inventoryID
++(UIImage *)barcodeImageForInventoryID:(NSString *)inventoryID
 {
     char buffer[64];
     sprintf(buffer,shortFormatString,inventoryID);
@@ -61,22 +64,15 @@ static const char *shortFormatString = "Repurpose,%u";
     return [UIImage imageFromBarcode:barcode];
 }
 
-+(NSUInteger)inventoryIDForBarcode:(NKDBarcode *)barcode
++(NSString *)inventoryIDForFormatString:(NSString *)str shortFormat:(BOOL)isShort
 {
-    NSString *barcodeString = [barcode content];
-    NSUInteger inventoryID = atoi([barcodeString UTF8String]);
-    return inventoryID;
-}
-
-+(NSUInteger)inventoryIDForFormatString:(NSString *)str shortFormat:(BOOL)isShort
-{
-    NSUInteger inventoryID;
+    NSString *inventoryID;
     
     NSScanner *scanner = [[NSScanner alloc] initWithString:str];
-    NSString  *formatString = (isShort ? @"Repurpose:" : @"Repurpose Project ID:");
+    NSString  *formatString = (isShort ? shortScanFormatString : longScanFormatString);
     
     [scanner scanString:formatString intoString:NULL];
-    [scanner scanHexInt:&inventoryID];
+    [scanner scanUpToString:@"\n" intoString:&inventoryID];
     
     return inventoryID;
 }
