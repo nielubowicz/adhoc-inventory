@@ -33,20 +33,19 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    // refreshData - load all inventory data into an array
-    [self loadObjects];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemAdded:) name:kInventoryItemAddedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemSold:) name:kInventoryItemSoldNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Navigation
@@ -68,6 +67,18 @@
     }
 }
 
+#pragma mark - InventoryItem notifications
+- (void)itemAdded:(NSNotification *)notification
+{
+    [self loadObjects];
+}
+
+- (void)itemSold:(NSNotification *)notification
+{
+    [self loadObjects];
+}
+
+#pragma mark - PFQueryTableView methods
 - (PFQuery *)queryForTable;
 {
     PFQuery *query = [PFQuery queryWithClassName:kPFInventoryClassName];
