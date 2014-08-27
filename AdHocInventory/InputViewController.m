@@ -70,10 +70,10 @@
         return YES; // Begin login process
     }
     
-    [[[UIAlertView alloc] initWithTitle:@"Missing Information"
-                                message:@"Make sure you fill out all of the information!"
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"Login missing infomation - Alert title")
+                                message:NSLocalizedString(@"Make sure you fill out all of the information!",@"Login missing infomation - Message")
                                delegate:nil
-                      cancelButtonTitle:@"ok"
+                      cancelButtonTitle:NSLocalizedString(@"OK",@"Login missing infomation - accept")
                       otherButtonTitles:nil] show];
     return NO; // Interrupt login process
 }
@@ -112,10 +112,10 @@
     
     // Display an alert if a field wasn't completed
     if (!informationComplete) {
-        [[[UIAlertView alloc] initWithTitle:@"Missing Information"
-                                    message:@"Make sure you fill out all of the information!"
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"Signup missing infomation - Alert title")
+                                    message:NSLocalizedString(@"Make sure you fill out all of the information!",@"Signup missing infomation - Message")
                                    delegate:nil
-                          cancelButtonTitle:@"ok"
+                          cancelButtonTitle:NSLocalizedString(@"OK",@"Signup missing infomation - accept")
                           otherButtonTitles:nil] show];
     }
     
