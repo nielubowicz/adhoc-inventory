@@ -16,3 +16,4 @@ NSString const *kPFInventoryObjectIdKey = @"objectId";
 NSString const *kPFInventoryTSAddedKey = @"tsadded";
 NSString const *kPFInventoryTSSoldKey = @"tssold";
 NSString const *kPFInventoryQRCodeKey = @"qrcode";
+NSString const *kPFInventorySoldItemKey = @"soldItem";

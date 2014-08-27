@@ -76,7 +76,7 @@ NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
                 NSLog(@"There was an error selling PFObject:%@, err:%@",soldItem,error);
                 return;
             }
-            [inventoryItem setObject:soldItem forKey:@"soldItem"];
+            [inventoryItem setObject:soldItem forKey:kPFInventorySoldItemKey];
             [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (error != nil)
                 {
