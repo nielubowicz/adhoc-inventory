@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
-@interface InputViewController : UIViewController
+@interface InputViewController : UIViewController <PFSignUpViewControllerDelegate,PFLogInViewControllerDelegate>
 
 @property (weak,nonatomic)IBOutlet UITextField *category;
 @property (weak,nonatomic)IBOutlet UITextField *description;

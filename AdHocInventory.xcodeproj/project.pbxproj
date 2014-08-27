@@ -23,7 +23,6 @@
 		8E14C01519A69734001E67DF /* FBMissingSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E14C01419A69734001E67DF /* FBMissingSymbols.m */; };
 		8E1B4680199B149B004F3740 /* InventoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B467F199B149B004F3740 /* InventoryItem.m */; };
 		8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B4682199B29C4004F3740 /* ListViewController.m */; };
-		8E26F17A19A7AB7000EB9C04 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E26F17919A7AB7000EB9C04 /* Parse.framework */; };
 		8E26F17E19A7AF5700EB9C04 /* ParseDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E26F17D19A7AF5700EB9C04 /* ParseDefinitions.m */; };
 		8E294404199EF8220010A22A /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E294403199EF8220010A22A /* ItemViewController.m */; };
 		8E4B35BE1999A53E0083D367 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35BD1999A53E0083D367 /* Foundation.framework */; };
@@ -46,6 +45,8 @@
 		8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5A919A2D4490034FF50 /* DismissSegue.m */; };
 		8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */; };
 		8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */; };
+		8EBE9E5F19AE50320037B356 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBE9E5E19AE50320037B356 /* Parse.framework */; };
+		8EBE9E6119AE50B70037B356 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBE9E6019AE50B70037B356 /* Bolts.framework */; };
 		8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +78,6 @@
 		8E1B467F199B149B004F3740 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
 		8E1B4681199B29C4004F3740 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		8E1B4682199B29C4004F3740 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
-		8E26F17919A7AB7000EB9C04 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		8E26F17C19A7AF5700EB9C04 /* ParseDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDefinitions.h; sourceTree = "<group>"; };
 		8E26F17D19A7AF5700EB9C04 /* ParseDefinitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDefinitions.m; sourceTree = "<group>"; };
 		8E294402199EF8220010A22A /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
@@ -113,6 +113,8 @@
 		8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RepurposeColors.m"; sourceTree = "<group>"; };
 		8E83BEF5199C05D100A08BAE /* UIImage+NonInterpolatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NonInterpolatedImage.h"; sourceTree = "<group>"; };
 		8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NonInterpolatedImage.m"; sourceTree = "<group>"; };
+		8EBE9E5E19AE50320037B356 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		8EBE9E6019AE50B70037B356 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		8ECD47F1199B0AC800480A4C /* BarcodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BarcodeGenerator.h; path = ../model/BarcodeGenerator.h; sourceTree = "<group>"; };
 		8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BarcodeGenerator.m; path = ../model/BarcodeGenerator.m; sourceTree = "<group>"; };
 		A4F6515D4F9047208DC5D55B /* libPods-AdHocInventory.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AdHocInventory.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,12 +132,13 @@
 				8E14C00419A6908E001E67DF /* CFNetwork.framework in Frameworks */,
 				8E4B35C01999A53E0083D367 /* CoreGraphics.framework in Frameworks */,
 				8E14C00519A6908E001E67DF /* CoreLocation.framework in Frameworks */,
-				8E26F17A19A7AB7000EB9C04 /* Parse.framework in Frameworks */,
+				8EBE9E5F19AE50320037B356 /* Parse.framework in Frameworks */,
 				8E4B35BE1999A53E0083D367 /* Foundation.framework in Frameworks */,
 				8E14C00619A6908E001E67DF /* libz.dylib in Frameworks */,
 				8E14C00719A6908E001E67DF /* MobileCoreServices.framework in Frameworks */,
 				8E14C00819A6908E001E67DF /* QuartzCore.framework in Frameworks */,
 				8E14C00E19A69473001E67DF /* Social.framework in Frameworks */,
+				8EBE9E6119AE50B70037B356 /* Bolts.framework in Frameworks */,
 				8E14C00919A6908E001E67DF /* StoreKit.framework in Frameworks */,
 				8E14C00A19A6908E001E67DF /* SystemConfiguration.framework in Frameworks */,
 				8E4B35C21999A53E0083D367 /* UIKit.framework in Frameworks */,
@@ -179,7 +182,8 @@
 		8E4B35BC1999A53E0083D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8E26F17919A7AB7000EB9C04 /* Parse.framework */,
+				8EBE9E6019AE50B70037B356 /* Bolts.framework */,
+				8EBE9E5E19AE50320037B356 /* Parse.framework */,
 				8E14C01119A69520001E67DF /* Security.framework */,
 				8E14C00F19A694BD001E67DF /* Accounts.framework */,
 				8E14C00D19A69473001E67DF /* Social.framework */,
