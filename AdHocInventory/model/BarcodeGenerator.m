@@ -7,8 +7,6 @@
 //
 
 #import "BarcodeGenerator.h"
-#import <NKDCode128Barcode.h>
-#import <UIImage-NKDBarcode.h>
 #import "InventoryItem.h"
 
 @implementation BarcodeGenerator
@@ -17,18 +15,6 @@ static const char *longFormatString = "AdHocInventory ID:%s\nCat:%s\nDesc:%s";
 static const char *shortFormatString = "AdHocInventory:%s";
 static NSString *longScanFormatString = @"AdHocInventory ID:";
 static NSString *shortScanFormatString = @"AdHocInventory:";
-
-
-+(NKDBarcode *)barcodeForInventoryID:(NSString *)inventoryID
-{
-    char buffer[64];
-    sprintf(buffer,shortFormatString,inventoryID);
-    
-    NKDBarcode *barcode = [[NKDCode128Barcode alloc] initWithContent:[NSString stringWithCString:buffer encoding:NSUTF8StringEncoding]
-                                                       printsCaption:YES];
-    
-    return barcode;
-}
 
 +(CIImage *)qrcodeImageForInventoryItem:(InventoryItem *)item
 {
@@ -52,16 +38,6 @@ static NSString *shortScanFormatString = @"AdHocInventory:";
     
     // Send the image back
     return qrFilter.outputImage;
-}
-
-+(UIImage *)barcodeImageForInventoryID:(NSString *)inventoryID
-{
-    char buffer[64];
-    sprintf(buffer,shortFormatString,inventoryID);
-    NKDBarcode *barcode = [[NKDCode128Barcode alloc] initWithContent:[NSString stringWithCString:buffer encoding:NSUTF8StringEncoding]
-                                                       printsCaption:YES];
-    
-    return [UIImage imageFromBarcode:barcode];
 }
 
 +(NSString *)inventoryIDForFormatString:(NSString *)str shortFormat:(BOOL)isShort
