@@ -20,7 +20,6 @@
 		8E14C00E19A69473001E67DF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14C00D19A69473001E67DF /* Social.framework */; };
 		8E14C01019A694BD001E67DF /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14C00F19A694BD001E67DF /* Accounts.framework */; };
 		8E14C01219A69520001E67DF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14C01119A69520001E67DF /* Security.framework */; };
-		8E14C01519A69734001E67DF /* FBMissingSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E14C01419A69734001E67DF /* FBMissingSymbols.m */; };
 		8E1B4680199B149B004F3740 /* InventoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B467F199B149B004F3740 /* InventoryItem.m */; };
 		8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B4682199B29C4004F3740 /* ListViewController.m */; };
 		8E26F17E19A7AF5700EB9C04 /* ParseDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E26F17D19A7AF5700EB9C04 /* ParseDefinitions.m */; };
@@ -73,7 +72,6 @@
 		8E14C00D19A69473001E67DF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		8E14C00F19A694BD001E67DF /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		8E14C01119A69520001E67DF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		8E14C01419A69734001E67DF /* FBMissingSymbols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBMissingSymbols.m; sourceTree = "<group>"; };
 		8E1B467E199B149B004F3740 /* InventoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryItem.h; sourceTree = "<group>"; };
 		8E1B467F199B149B004F3740 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
 		8E1B4681199B29C4004F3740 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 				8E4B35C61999A53E0083D367 /* InfoPlist.strings */,
 				8E4B35C91999A53E0083D367 /* main.m */,
 				8E4B35CB1999A53E0083D367 /* AdHocInventory-Prefix.pch */,
-				8E14C01419A69734001E67DF /* FBMissingSymbols.m */,
 				8E26F17C19A7AF5700EB9C04 /* ParseDefinitions.h */,
 				8E26F17D19A7AF5700EB9C04 /* ParseDefinitions.m */,
 			);
@@ -441,7 +438,6 @@
 				8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */,
 				8E4B35CE1999A53E0083D367 /* AppDelegate.m in Sources */,
 				8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */,
-				8E14C01519A69734001E67DF /* FBMissingSymbols.m in Sources */,
 				8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */,
 				8E4B35D71999A53F0083D367 /* InputViewController.m in Sources */,
 				8E4B35FD1999B9F70083D367 /* InventoryDataManager.m in Sources */,
