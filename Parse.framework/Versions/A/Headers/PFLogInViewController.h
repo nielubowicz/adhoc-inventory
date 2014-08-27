@@ -34,7 +34,7 @@
         PFLogInFieldsDefault = PFLogInFieldsUsernameAndPassword | PFLogInFieldsLogInButton | PFLogInFieldsSignUpButton | PFLogInFieldsPasswordForgotten | PFLogInFieldsDismissButton
     };
  */
-@property (nonatomic) PFLogInFields fields;
+@property (nonatomic, assign) PFLogInFields fields;
 
 /// The log in view. It contains all the enabled log in elements.
 @property (nonatomic, strong, readonly) PFLogInView *logInView;
@@ -99,5 +99,5 @@ extern NSString *const PFLogInCancelNotification;
 
 /// Sent to the delegate when the log in screen is dismissed.
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController;
-@end
 
+@end

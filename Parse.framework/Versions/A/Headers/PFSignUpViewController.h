@@ -31,7 +31,7 @@
         PFSignUpFieldsDefault = PFSignUpFieldsUsernameAndPassword | PFSignUpFieldsEmail | PFSignUpFieldsSignUpButton | PFSignUpFieldsDismissButton
     };
  */
-@property (nonatomic) PFSignUpFields fields;
+@property (nonatomic, assign) PFSignUpFields fields;
 
 /// The sign up view. It contains all the enabled log in elements.
 @property (nonatomic, strong, readonly) PFSignUpView *signUpView;
