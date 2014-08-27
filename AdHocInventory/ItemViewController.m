@@ -45,8 +45,7 @@
     [formatter setDateFormat:@"EEE HH:mm, MM/d/yyyy"];
     [_dateReceivedLabel setText:[formatter stringFromDate:[item dateReceived]]];
     
-    [_barcodeView setImage:[UIImage createNonInterpolatedUIImageFromCIImage:[BarcodeGenerator qrcodeImageForInventoryItem:item]
-                                                                  withScale:1.0]];
+    [_barcodeView setImage:[item qrCode]];
 }
 
 - (void)didReceiveMemoryWarning

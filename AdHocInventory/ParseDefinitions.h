@@ -13,3 +13,4 @@ FOUNDATION_EXPORT NSString *kPFInventoryCategoryKey;
 FOUNDATION_EXPORT NSString *kPFInventoryObjectIdKey;
 FOUNDATION_EXPORT NSString *kPFInventoryTSAddedKey;
 FOUNDATION_EXPORT NSString *kPFInventoryTSSoldKey;
+FOUNDATION_EXPORT NSString *kPFInventoryQRCodeKey;

@@ -1,5 +1,6 @@
 #import "InventoryDataManager.h"
 #import "InventoryItem.h"
+#import "BarcodeGenerator.h"
 #import <Parse/Parse.h>
 
 @interface InventoryDataManager()
@@ -47,7 +48,6 @@ NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
     inventoryItem[kPFInventoryCategoryKey] = category;
     inventoryItem[kPFInventoryItemDescriptionKey] = itemDescription;
     inventoryItem[kPFInventoryTSAddedKey] = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]];
-    
     [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error != nil)
         {
@@ -55,6 +55,11 @@ NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
             return;
         }
         InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
+        UIImage *qr = [UIImage createNonInterpolatedUIImageFromCIImage:[BarcodeGenerator qrcodeImageForInventoryItem:item]
+                                                                                      withScale:1.0];
+        inventoryItem[kPFInventoryQRCodeKey] = UIImagePNGRepresentation(qr);
+        [item setQrCode:inventoryItem[kPFInventoryQRCodeKey]];
+        [inventoryItem saveInBackground];
         [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemAddedNotification object:item];
     }];
 }

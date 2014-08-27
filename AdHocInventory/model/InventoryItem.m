@@ -33,6 +33,7 @@
             [self setDateSold:[NSDate dateWithTimeIntervalSince1970:[object[kPFInventoryTSSoldKey] longLongValue]]];
         }
         
+        [self setQrCode:[UIImage imageWithData:object[kPFInventoryQRCodeKey]]];
     }
     return self;
 }
@@ -42,5 +43,6 @@
 @synthesize itemDescription;
 @synthesize dateReceived;
 @synthesize dateSold;
+@synthesize qrCode;
 
 @end

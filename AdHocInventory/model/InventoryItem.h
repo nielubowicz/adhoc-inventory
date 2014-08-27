@@ -19,4 +19,6 @@
 @property(strong,nonatomic)NSDate *dateReceived;
 @property(strong,nonatomic)NSDate *dateSold;
 
+@property(strong,nonatomic)UIImage *qrCode;
+
 @end

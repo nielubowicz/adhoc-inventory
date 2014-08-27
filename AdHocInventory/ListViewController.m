@@ -93,12 +93,11 @@
                         object:(PFObject *)object
 {
     PFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"barcode" forIndexPath:indexPath];
-    
     InventoryItem *item = [[InventoryItem alloc] initWithPFObject:object];
     
     [[cell textLabel] setText:[NSString stringWithFormat:@"%@, %@",[item itemDescription],[item category]]];
-    CIImage *qr =[BarcodeGenerator qrcodeImageForInventoryItem:item];
-    [[cell imageView] setImage:[UIImage createNonInterpolatedUIImageFromCIImage:qr withScale:1.0]];
+    [[cell detailTextLabel] setText:[[item dateReceived] description]];
+    [[cell imageView] setImage:[item qrCode]];
     return cell;
 }
 
