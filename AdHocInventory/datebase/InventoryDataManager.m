@@ -59,7 +59,7 @@ NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
         UIImage *qr = [UIImage createNonInterpolatedUIImageFromCIImage:[BarcodeGenerator qrcodeImageForInventoryItem:item]
                                                                                       withScale:1.0];
         inventoryItem[kPFInventoryQRCodeKey] = UIImagePNGRepresentation(qr);
-        [item setQrCode:inventoryItem[kPFInventoryQRCodeKey]];
+        [item setQrCode:qr];
         [inventoryItem saveInBackground];
         [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemAddedNotification object:item];
     }];
