@@ -3,8 +3,10 @@
 
 target "AdHocInventory" do
 pod "BSKeyboardControls"
+pod "Toast","~> 2.3"
 end
 
 target "AdHocInventory" do
 pod "BSKeyboardControls"
+pod "Toast","~> 2.3"
 end
