@@ -72,10 +72,6 @@
                                     <action selector="addItem:" destination="CZ4-MO-1fc" eventType="touchUpInside" id="WSU-R6-ehP"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q2f-PC-rhn">
-                                <rect key="frame" x="40" y="304" width="240" height="163"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -87,7 +83,6 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Input" image="third" id="u1e-5L-l1D"/>
                     <connections>
-                        <outlet property="barcode" destination="Q2f-PC-rhn" id="SP1-ts-xpQ"/>
                         <outlet property="category" destination="OR4-JW-eV1" id="TJ9-Eh-L02"/>
                         <outlet property="description" destination="6LA-AL-upy" id="7bO-mg-V4s"/>
                         <outlet property="notes" destination="Khn-4D-Lba" id="RxX-4T-RRu"/>

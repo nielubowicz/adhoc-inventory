@@ -12,6 +12,7 @@
 #import "InventoryItem.h"
 #import <Parse/Parse.h>
 #import "LoginViewController.h"
+#import "UIView+Toast.h"
 
 @interface InputViewController ()
 
@@ -22,7 +23,6 @@
 @synthesize category;
 @synthesize description;
 @synthesize notes;
-@synthesize barcode;
 
 - (void)viewDidLoad
 {
@@ -180,8 +180,12 @@
 - (void)itemAdded:(NSNotification *)notification
 {
     InventoryItem *item = [notification object];
-    CIImage *qrcode = [BarcodeGenerator qrcodeImageForInventoryItem:item];
-    [barcode setImage:[UIImage createNonInterpolatedUIImageFromCIImage:qrcode withScale:1.0f]];
+    [self.view makeToast:[NSString stringWithFormat:NSLocalizedString(@"Added %@",@"Item added Toast message - Description"),[item itemDescription]]
+                duration:3.0
+                position:@"bottom"
+                   title:[NSString stringWithFormat:NSLocalizedString(@"%@:", @"Item added Toast Title - Category"), [item category]]
+                   image:[item qrCode]];
+ 
 }
 
 @end
