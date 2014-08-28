@@ -46,6 +46,7 @@
 		8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */; };
 		8EBE9E5F19AE50320037B356 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBE9E5E19AE50320037B356 /* Parse.framework */; };
 		8EBE9E6119AE50B70037B356 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBE9E6019AE50B70037B356 /* Bolts.framework */; };
+		8EBE9E6419AEE58F0037B356 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBE9E6319AEE58F0037B356 /* LoginViewController.m */; };
 		8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +114,8 @@
 		8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NonInterpolatedImage.m"; sourceTree = "<group>"; };
 		8EBE9E5E19AE50320037B356 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		8EBE9E6019AE50B70037B356 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		8EBE9E6219AEE58F0037B356 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		8EBE9E6319AEE58F0037B356 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		8ECD47F1199B0AC800480A4C /* BarcodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BarcodeGenerator.h; path = ../model/BarcodeGenerator.h; sourceTree = "<group>"; };
 		8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BarcodeGenerator.m; path = ../model/BarcodeGenerator.m; sourceTree = "<group>"; };
 		A4F6515D4F9047208DC5D55B /* libPods-AdHocInventory.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AdHocInventory.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -276,6 +279,8 @@
 				8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */,
 				8E50A5A819A2D4490034FF50 /* DismissSegue.h */,
 				8E50A5A919A2D4490034FF50 /* DismissSegue.m */,
+				8EBE9E6219AEE58F0037B356 /* LoginViewController.h */,
+				8EBE9E6319AEE58F0037B356 /* LoginViewController.m */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -438,6 +443,7 @@
 				8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */,
 				8E4B35CE1999A53E0083D367 /* AppDelegate.m in Sources */,
 				8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */,
+				8EBE9E6419AEE58F0037B356 /* LoginViewController.m in Sources */,
 				8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */,
 				8E4B35D71999A53F0083D367 /* InputViewController.m in Sources */,
 				8E4B35FD1999B9F70083D367 /* InventoryDataManager.m in Sources */,

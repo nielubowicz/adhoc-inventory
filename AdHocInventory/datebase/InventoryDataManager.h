@@ -4,7 +4,7 @@
 
 +(InventoryDataManager *)sharedManager;
 
--(void)addItem:(NSString *)item category:(NSString *)category; // asynchronous. Register for kInventoryItemAddedNotification notifications
+-(void)addItem:(NSString *)itemDescription category:(NSString *)category notes:(NSString *)notes; // asynchronous. Register for kInventoryItemAddedNotification notifications
 -(void)sellItem:(InventoryItem *)item; // asynchronous. Register for kInventoryItemSoldNotification notifications
 
 FOUNDATION_EXPORT NSString const *kInventoryItemAddedNotification;

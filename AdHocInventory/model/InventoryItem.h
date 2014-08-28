@@ -16,6 +16,7 @@
 @property(strong,nonatomic)NSString *inventoryID;
 @property(strong,nonatomic)NSString *category;
 @property(strong,nonatomic)NSString *itemDescription;
+@property(strong,nonatomic)NSString *notes;
 @property(strong,nonatomic)NSDate *dateReceived;
 @property(strong,nonatomic)NSDate *dateSold;
 

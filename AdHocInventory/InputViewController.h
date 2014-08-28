@@ -13,6 +13,7 @@
 
 @property (weak,nonatomic)IBOutlet UITextField *category;
 @property (weak,nonatomic)IBOutlet UITextField *description;
+@property (weak,nonatomic)IBOutlet UITextField *notes;
 @property (weak,nonatomic)IBOutlet UIImageView *barcode;
 
 -(IBAction)addItem:(id)sender;

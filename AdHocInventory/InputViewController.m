@@ -11,6 +11,7 @@
 #import "BarcodeGenerator.h"
 #import "InventoryItem.h"
 #import <Parse/Parse.h>
+#import "LoginViewController.h"
 
 @interface InputViewController ()
 
@@ -18,8 +19,9 @@
 
 @implementation InputViewController
 
-@synthesize description;
 @synthesize category;
+@synthesize description;
+@synthesize notes;
 @synthesize barcode;
 
 - (void)viewDidLoad
@@ -33,13 +35,25 @@
 {
     [super viewDidAppear:animated];
     if (![PFUser currentUser]) { // No user logged in
+        
+        UILabel *logo = [UILabel new];
+        [logo setText:@"AdHoc Inventory"];
+        [logo setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
+        [logo setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];
+        [logo setShadowOffset:CGSizeMake(0,1)];
+        [logo setFont:[UIFont systemFontOfSize:32.0f]];
+        [logo sizeToFit];
+        
         // Create the log in view controller
-        PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
+        LoginViewController *logInViewController = [[LoginViewController alloc] init];
         [logInViewController setDelegate:self]; // Set ourselves as the delegate
         
         // Create the sign up view controller
         PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
         [signUpViewController setDelegate:self]; // Set ourselves as the delegate
+
+        // Set title in Signup View Controller
+        [[signUpViewController signUpView] setLogo:logo];
         
         // Assign our sign up controller to be displayed from the login controller
         [logInViewController setSignUpController:signUpViewController];
@@ -153,12 +167,14 @@
         return;
     }
     
-    [db addItem:[description text] category:[category text]];
+    [db addItem:[description text] category:[category text] notes:[notes text]];
     [description setText:@""];
     [category setText:@""];
+    [notes setText:@""];
     
     [description resignFirstResponder];
     [category resignFirstResponder];
+    [notes resignFirstResponder];
 }
 
 - (void)itemAdded:(NSNotification *)notification

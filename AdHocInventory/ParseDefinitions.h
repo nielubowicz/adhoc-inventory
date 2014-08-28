@@ -15,3 +15,4 @@ FOUNDATION_EXPORT NSString *kPFInventoryTSAddedKey;
 FOUNDATION_EXPORT NSString *kPFInventoryTSSoldKey;
 FOUNDATION_EXPORT NSString *kPFInventoryQRCodeKey;
 FOUNDATION_EXPORT NSString *kPFInventorySoldItemKey;
+FOUNDATION_EXPORT NSString *kPFInventoryNotesKey;
