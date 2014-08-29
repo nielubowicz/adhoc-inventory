@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Assorted Intelligence. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "LogInViewController.h"
 
-@interface LoginViewController ()
+@interface LogInViewController ()
 
 @end
 
-@implementation LoginViewController
+@implementation LogInViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

@@ -7,6 +7,8 @@
 //
 
 #import "SignUpViewController.h"
+#import "HTAutocompleteManager.h"
+#import "HTAutocompleteTextField.h"
 
 @interface SignUpViewController ()
 
@@ -27,6 +29,33 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UILabel *logo = [UILabel new];
+    [logo setText:@"AdHoc Inventory"];
+    [logo setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
+    [logo setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];
+    [logo setShadowOffset:CGSizeMake(0,2)];
+    [logo setFont:[UIFont systemFontOfSize:32.0f]];
+    [logo sizeToFit];
+    
+    [[self signUpView] setLogo:logo];
+    
+    HTAutocompleteTextField *email = [[HTAutocompleteTextField alloc] initWithFrame:[[[self signUpView] emailField] frame]];
+    [email setAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
+    [email setAutocompleteType:HTAutocompleteTypeEmail];
+    [email setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Email",@"Signup - email placeholder text")
+                                                                    attributes:@{NSForegroundColorAttributeName: [self.signUpView.emailField.attributedPlaceholder attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL]}]];
+
+    [email setTextAlignment:NSTextAlignmentCenter];
+    [email setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+    [email setTextColor:[self.signUpView.emailField textColor]];
+    [email.layer setShadowColor:[self.signUpView.emailField.layer shadowColor]];
+    [email.layer setShadowOffset:[self.signUpView.emailField.layer shadowOffset]];
+    [email.layer setShadowOpacity:[self.signUpView.emailField.layer shadowOpacity]];
+    [email.layer setShadowRadius:[self.signUpView.emailField.layer shadowRadius]];
+    
+    [[[self signUpView] emailField] removeFromSuperview];
+    [[self signUpView] setValue:email forKey:@"emailField"];
+    [[self signUpView] addSubview:email];
 }
 
 - (void)didReceiveMemoryWarning

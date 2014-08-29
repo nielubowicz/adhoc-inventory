@@ -11,7 +11,8 @@
 #import "BarcodeGenerator.h"
 #import "InventoryItem.h"
 #import <Parse/Parse.h>
-#import "LoginViewController.h"
+#import "LogInViewController.h"
+#import "SignUpViewController.h"
 #import "UIView+Toast.h"
 
 @interface InputViewController ()
@@ -45,16 +46,13 @@
         [logo sizeToFit];
         
         // Create the log in view controller
-        LoginViewController *logInViewController = [[LoginViewController alloc] init];
+        LogInViewController *logInViewController = [[LogInViewController alloc] init];
         [logInViewController setDelegate:self]; // Set ourselves as the delegate
 
         // Create the sign up view controller
-        PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
+        SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
         [signUpViewController setDelegate:self]; // Set ourselves as the delegate
 
-        // Set title in Signup View Controller
-        [[signUpViewController signUpView] setLogo:logo];
-        
         // Assign our sign up controller to be displayed from the login controller
         [logInViewController setSignUpController:signUpViewController];
         
