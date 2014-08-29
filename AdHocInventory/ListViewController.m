@@ -96,7 +96,9 @@
     InventoryItem *item = [[InventoryItem alloc] initWithPFObject:object];
     
     [[cell textLabel] setText:[NSString stringWithFormat:@"%@, %@",[item itemDescription],[item category]]];
-    [[cell detailTextLabel] setText:[[item dateReceived] description]];
+    [[cell detailTextLabel] setText:[NSDateFormatter localizedStringFromDate:[item dateReceived]
+                                                                   dateStyle:NSDateFormatterMediumStyle
+                                                                   timeStyle:NSDateFormatterShortStyle]];
     [[cell imageView] setImage:[item qrCode]];
     return cell;
 }
