@@ -40,14 +40,14 @@
         [logo setText:@"AdHoc Inventory"];
         [logo setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
         [logo setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];
-        [logo setShadowOffset:CGSizeMake(0,1)];
+        [logo setShadowOffset:CGSizeMake(0,2)];
         [logo setFont:[UIFont systemFontOfSize:32.0f]];
         [logo sizeToFit];
         
         // Create the log in view controller
         LoginViewController *logInViewController = [[LoginViewController alloc] init];
         [logInViewController setDelegate:self]; // Set ourselves as the delegate
-        
+
         // Create the sign up view controller
         PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
         [signUpViewController setDelegate:self]; // Set ourselves as the delegate
