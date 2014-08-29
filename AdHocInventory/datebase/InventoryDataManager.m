@@ -69,24 +69,24 @@ NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
 {
     PFQuery *query = [PFQuery queryWithClassName:kPFInventoryClassName];
     [query getObjectInBackgroundWithId:[[item inventoryID] description] block:^(PFObject *inventoryItem, NSError *error) {
+        if (error != nil)
+        {
+            NSLog(@"There was an error retrieving PFObject for objectID:%@, err:%@",[item inventoryID],error);
+            return;
+        }
         PFObject *soldItem = [PFObject objectWithClassName:kPFInventorySoldClassName];
         soldItem[kPFInventoryTSSoldKey] = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]];
-        [soldItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [inventoryItem setObject:soldItem forKey:kPFInventorySoldItemKey];
+        
+        [PFObject saveAllInBackground:@[soldItem,inventoryItem] block:^(BOOL succeeded, NSError *error) {
             if (error != nil)
             {
                 NSLog(@"There was an error selling PFObject:%@, err:%@",soldItem,error);
                 return;
             }
-            [inventoryItem setObject:soldItem forKey:kPFInventorySoldItemKey];
-            [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (error != nil)
-                {
-                    NSLog(@"There was an error saving relation of PFObject soldItem:%@ to inventoryItem:%@, err:%@",soldItem,inventoryItem,error);
-                    return;
-                }
-                InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemSoldNotification object:item];
-            }];
+            
+            InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemSoldNotification object:item];
         }];
     }];
 }
