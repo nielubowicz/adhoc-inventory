@@ -41,10 +41,9 @@
     [_categoryLabel setText:[item category]];
     [_descriptionLabel setText:[item itemDescription]];
 
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"EEE HH:mm, MM/d/yyyy"];
-    [_dateReceivedLabel setText:[formatter stringFromDate:[item dateReceived]]];
-    
+    [_dateReceivedLabel setText:[NSDateFormatter localizedStringFromDate:[item dateReceived]
+                                                               dateStyle:NSDateFormatterMediumStyle
+                                                               timeStyle:NSDateFormatterShortStyle]];
     [_barcodeView setImage:[item qrCode]];
 }
 
