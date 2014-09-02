@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
+@class HTAutocompleteTextField;
+
 @interface InputViewController : UIViewController <PFSignUpViewControllerDelegate,PFLogInViewControllerDelegate>
 
-@property (weak,nonatomic)IBOutlet UITextField *category;
+@property (weak,nonatomic)IBOutlet HTAutocompleteTextField *category;
 @property (weak,nonatomic)IBOutlet UITextField *description;
 @property (weak,nonatomic)IBOutlet UITextField *notes;
 

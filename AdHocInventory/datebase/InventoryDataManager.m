@@ -61,6 +61,7 @@ NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
         inventoryItem[kPFInventoryQRCodeKey] = UIImagePNGRepresentation(qr);
         [item setQrCode:qr];
         [inventoryItem saveInBackground];
+        [PFQuery clearAllCachedResults];
         [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemAddedNotification object:item];
     }];
 }
@@ -86,9 +87,18 @@ NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
             }
             
             InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
+            [PFQuery clearAllCachedResults];
             [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemSoldNotification object:item];
         }];
     }];
+}
+
+-(NSArray *)allCategories
+{
+    PFQuery *query = [PFQuery queryWithClassName:kPFInventoryClassName];
+    [query setCachePolicy:kPFCachePolicyCacheElseNetwork];
+    NSArray *reqQuery = [query findObjects];
+    return [reqQuery valueForKeyPath:[@"@distinctUnionOfObjects." stringByAppendingString:kPFInventoryCategoryKey]];
 }
 
 @end

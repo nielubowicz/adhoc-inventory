@@ -7,15 +7,28 @@
 //
 
 #import "HTAutocompleteManager.h"
+#import "InventoryDataManager.h"
 
 static HTAutocompleteManager *sharedManager;
+static dispatch_queue_t autocompleteQueue;
+static NSArray *categoryAutocompleteArray;
 
 @implementation HTAutocompleteManager
 
 + (HTAutocompleteManager *)sharedManager
 {
 	static dispatch_once_t done;
-	dispatch_once(&done, ^{ sharedManager = [[HTAutocompleteManager alloc] init]; });
+    dispatch_once(&done, ^{
+        sharedManager = [[HTAutocompleteManager alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver:sharedManager
+                                                 selector:@selector(updateCategoryArray)
+                                                     name:kInventoryItemAddedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:sharedManager
+                                                 selector:@selector(updateCategoryArray)
+                                                     name:kInventoryItemSoldNotification object:nil];
+        
+        autocompleteQueue = dispatch_queue_create("AutocompleteQueue",NULL);
+    });
 	return sharedManager;
 }
 
@@ -251,40 +264,13 @@ static HTAutocompleteManager *sharedManager;
             }
         }
     }
-    else if (textField.autocompleteType == HTAutocompleteTypeColor)
+    else if (textField.autocompleteType == HTAutocompleteTypeCategory)
     {
-        static dispatch_once_t colorOnceToken;
-        static NSArray *colorAutocompleteArray;
-        dispatch_once(&colorOnceToken, ^
-        {
-            colorAutocompleteArray = @[ @"Alfred",
-                                        @"Beth",
-                                        @"Carlos",
-                                        @"Daniel",
-                                        @"Ethan",
-                                        @"Fred",
-                                        @"George",
-                                        @"Helen",
-                                        @"Inis",
-                                        @"Jennifer",
-                                        @"Kylie",
-                                        @"Liam",
-                                        @"Melissa",
-                                        @"Noah",
-                                        @"Omar",
-                                        @"Penelope",
-                                        @"Quan",
-                                        @"Rachel",
-                                        @"Seth",
-                                        @"Timothy",
-                                        @"Ulga",
-                                        @"Vanessa",
-                                        @"William",
-                                        @"Xao",
-                                        @"Yilton",
-                                        @"Zander"];
+        static dispatch_once_t categoryOnceToken;
+        dispatch_once(&categoryOnceToken, ^{
+            [self updateCategoryArray];
         });
-
+                      
         NSString *stringToLookFor;
 		NSArray *componentsString = [prefix componentsSeparatedByString:@","];
         NSString *prefixLastComponent = [componentsString.lastObject stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -297,7 +283,7 @@ static HTAutocompleteManager *sharedManager;
             stringToLookFor = prefixLastComponent;
         }
         
-        for (NSString *stringFromReference in colorAutocompleteArray)
+        for (NSString *stringFromReference in categoryAutocompleteArray)
         {
             NSString *stringToCompare;
             if (ignoreCase)
@@ -318,6 +304,13 @@ static HTAutocompleteManager *sharedManager;
     }
     
     return @"";
+}
+
+-(void)updateCategoryArray
+{
+    dispatch_async(autocompleteQueue, ^{
+        categoryAutocompleteArray = [[InventoryDataManager sharedManager] allCategories];
+    });
 }
 
 @end

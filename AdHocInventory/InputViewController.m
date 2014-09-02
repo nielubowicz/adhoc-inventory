@@ -14,6 +14,8 @@
 #import "LogInViewController.h"
 #import "SignUpViewController.h"
 #import "UIView+Toast.h"
+#import "HTAutocompleteManager.h"
+#import "HTAutocompleteTextField.h"
 
 @interface InputViewController ()
 
@@ -30,6 +32,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemAdded:) name:kInventoryItemAddedNotification object:nil];
+    
+    [category setAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
+    [category setAutocompleteType:HTAutocompleteTypeCategory];
 }
 
 -(void)viewDidAppear:(BOOL)animated
