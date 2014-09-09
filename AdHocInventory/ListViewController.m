@@ -82,7 +82,7 @@
 - (PFQuery *)queryForTable;
 {
     PFQuery *query = [PFQuery queryWithClassName:kPFInventoryClassName];
-    [query whereKeyDoesNotExist:kPFInventorySoldItemKey];
+    [query whereKey:kPFInventoryQuantityKey greaterThan:@0];
     return query;
 }
 

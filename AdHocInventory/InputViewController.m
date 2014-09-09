@@ -202,10 +202,7 @@
         return;
     }
     
-    [db addItem:[description text] category:[category text] notes:[notes text]];
-    [description setText:@""];
-    [category setText:@""];
-    [notes setText:@""];
+    [db addItem:[description text] category:[category text] notes:[notes text] quantity:(uint)[quantityStepper value]];
     
     [[[self view] subviews] enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[UITextField class]])

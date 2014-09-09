@@ -42,13 +42,14 @@ NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
 
 #pragma mark -
 #pragma mark Data entry methods
--(void)addItem:(NSString *)itemDescription category:(NSString *)category notes:(NSString *)notes
+-(void)addItem:(NSString *)itemDescription category:(NSString *)category notes:(NSString *)notes quantity:(NSUInteger)quantity;
 {
     PFObject *inventoryItem = [PFObject objectWithClassName:kPFInventoryClassName];
     inventoryItem[kPFInventoryCategoryKey] = category;
     inventoryItem[kPFInventoryItemDescriptionKey] = itemDescription;
     inventoryItem[kPFInventoryNotesKey] = notes;
     inventoryItem[kPFInventoryTSAddedKey] = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]];
+    inventoryItem[kPFInventoryQuantityKey] = [NSNumber numberWithUnsignedInt:quantity];
     [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error != nil)
         {
