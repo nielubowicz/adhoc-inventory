@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 Assorted Intelligence. All rights reserved.
 //
 
-FOUNDATION_EXPORT NSString *kPFInventoryClassName;
-FOUNDATION_EXPORT NSString *kPFInventorySoldClassName;
-FOUNDATION_EXPORT NSString *kPFInventoryItemDescriptionKey;
-FOUNDATION_EXPORT NSString *kPFInventoryCategoryKey;
-FOUNDATION_EXPORT NSString *kPFInventoryObjectIdKey;
-FOUNDATION_EXPORT NSString *kPFInventoryTSAddedKey;
-FOUNDATION_EXPORT NSString *kPFInventoryTSSoldKey;
-FOUNDATION_EXPORT NSString *kPFInventoryQRCodeKey;
-FOUNDATION_EXPORT NSString *kPFInventorySoldItemKey;
-FOUNDATION_EXPORT NSString *kPFInventoryNotesKey;
+extern NSString *const kPFInventoryClassName;
+extern NSString *const kPFInventorySoldClassName;
+extern NSString *const kPFInventoryItemDescriptionKey;
+extern NSString *const kPFInventoryCategoryKey;
+extern NSString *const kPFInventoryObjectIdKey;
+extern NSString *const kPFInventoryTSAddedKey;
+extern NSString *const kPFInventoryTSSoldKey;
+extern NSString *const kPFInventoryQRCodeKey;
+extern NSString *const kPFInventorySoldItemKey;
+extern NSString *const kPFInventoryNotesKey;
+extern NSString *const kPFInventoryQuantityKey;

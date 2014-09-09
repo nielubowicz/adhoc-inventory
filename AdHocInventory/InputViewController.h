@@ -16,7 +16,11 @@
 @property (weak,nonatomic)IBOutlet HTAutocompleteTextField *category;
 @property (weak,nonatomic)IBOutlet UITextField *description;
 @property (weak,nonatomic)IBOutlet UITextField *notes;
+@property (weak,nonatomic)IBOutlet UIStepper *quantityStepper;
+@property (weak,nonatomic)IBOutlet UILabel *quantity;
 
 -(IBAction)addItem:(id)sender;
+-(IBAction)handleSingleTap:(id)sender;
+-(IBAction)updateQuantity:(UIStepper *)sender;
 
 @end

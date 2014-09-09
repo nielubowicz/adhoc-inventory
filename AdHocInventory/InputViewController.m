@@ -26,6 +26,8 @@
 @synthesize category;
 @synthesize description;
 @synthesize notes;
+@synthesize quantity;
+@synthesize quantityStepper;
 
 - (void)viewDidLoad
 {
@@ -35,6 +37,16 @@
     
     [category setAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
     [category setAutocompleteType:HTAutocompleteTypeCategory];
+    
+    [self updateQuantity:quantityStepper];
+    [[[self view] subviews] enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[UITextField class]])
+        {
+            CALayer *layer = obj.layer;
+            layer.borderColor = [UIColor lightTealColor].CGColor;
+            layer.borderWidth = 2.0f;
+        }
+    }];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -75,6 +87,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)updateQuantity:(UIStepper *)sender
+{
+    [quantity setText:[NSString stringWithFormat:NSLocalizedString(@"Quantity: %d",@"Quantity string"),(int)[sender value]]];
 }
 
 #pragma mark -
@@ -154,6 +171,15 @@
     NSLog(@"User dismissed the signUpViewController");
 }
 
+#pragma mark - 
+#pragma mark Keyboard methods
+- (IBAction)handleSingleTap:(id)sender
+{
+    [[[self view] subviews] enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+        [obj resignFirstResponder];
+    }];
+}
+
 #pragma mark -
 #pragma mark Add item methods
 - (IBAction)addItem:(id)sender
@@ -175,9 +201,13 @@
     [category setText:@""];
     [notes setText:@""];
     
-    [description resignFirstResponder];
-    [category resignFirstResponder];
-    [notes resignFirstResponder];
+    [[[self view] subviews] enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[UITextField class]])
+        {
+            [(UITextField *)obj setText:@""];
+            [obj resignFirstResponder];
+        }
+    }];
 }
 
 - (void)itemAdded:(NSNotification *)notification

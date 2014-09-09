@@ -8,13 +8,14 @@
 
 #import "ParseDefinitions.h"
 
-NSString const *kPFInventoryClassName = @"InventoryItem";
-NSString const *kPFInventorySoldClassName = @"SoldInventoryItem";
-NSString const *kPFInventoryItemDescriptionKey = @"itemDescription";
-NSString const *kPFInventoryCategoryKey = @"category";
-NSString const *kPFInventoryObjectIdKey = @"objectId";
-NSString const *kPFInventoryTSAddedKey = @"tsadded";
-NSString const *kPFInventoryTSSoldKey = @"tssold";
-NSString const *kPFInventoryQRCodeKey = @"qrcode";
-NSString const *kPFInventorySoldItemKey = @"soldItem";
-NSString const *kPFInventoryNotesKey = @"notes";
+NSString *const kPFInventoryClassName = @"InventoryItem";
+NSString *const kPFInventorySoldClassName = @"SoldInventoryItem";
+NSString *const kPFInventoryItemDescriptionKey = @"itemDescription";
+NSString *const kPFInventoryCategoryKey = @"category";
+NSString *const kPFInventoryObjectIdKey = @"objectId";
+NSString *const kPFInventoryTSAddedKey = @"tsadded";
+NSString *const kPFInventoryTSSoldKey = @"tssold";
+NSString *const kPFInventoryQRCodeKey = @"qrcode";
+NSString *const kPFInventorySoldItemKey = @"soldItem";
+NSString *const kPFInventoryNotesKey = @"notes";
+NSString *const kPFInventoryQuantityKey = @"quantity";
