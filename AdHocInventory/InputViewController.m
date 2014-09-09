@@ -107,7 +107,7 @@
     [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"Login missing infomation - Alert title")
                                 message:NSLocalizedString(@"Make sure you fill out all of the information!",@"Login missing infomation - Message")
                                delegate:nil
-                      cancelButtonTitle:NSLocalizedString(@"OK",@"Login missing infomation - accept")
+                      cancelButtonTitle:NSLocalizedString(@"OK",@"Alert - accept")
                       otherButtonTitles:nil] show];
     return NO; // Interrupt login process
 }
@@ -121,6 +121,12 @@
 // Sent to the delegate when the log in attempt fails.
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error
 {
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Incorrect Credentials",@"Login failed - Alert title")
+                                message:NSLocalizedString(@"The username or password you entered is incorrect.",@"Login failed - Message")
+                               delegate:self
+                      cancelButtonTitle:NSLocalizedString(@"OK",@"Alert - accept")
+                      otherButtonTitles:nil] show];
+    
     NSLog(@"Failed to log in...");
 }
 
@@ -149,7 +155,7 @@
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information",@"Signup missing infomation - Alert title")
                                     message:NSLocalizedString(@"Make sure you fill out all of the information!",@"Signup missing infomation - Message")
                                    delegate:nil
-                          cancelButtonTitle:NSLocalizedString(@"OK",@"Signup missing infomation - accept")
+                          cancelButtonTitle:NSLocalizedString(@"OK",@"Alert - accept")
                           otherButtonTitles:nil] show];
     }
     
