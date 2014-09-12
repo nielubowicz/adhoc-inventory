@@ -8,7 +8,7 @@
 -(void)sellItem:(InventoryItem *)item; // asynchronous. Register for kInventoryItemSoldNotification notifications
 -(NSArray *)allCategories; // synchronous. 
 
-FOUNDATION_EXPORT NSString const *kInventoryItemAddedNotification;
-FOUNDATION_EXPORT NSString const *kInventoryItemSoldNotification;
+FOUNDATION_EXPORT NSString *const kInventoryItemAddedNotification;
+FOUNDATION_EXPORT NSString *const kInventoryItemSoldNotification;
 
 @end

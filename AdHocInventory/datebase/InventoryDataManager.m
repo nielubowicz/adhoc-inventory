@@ -9,8 +9,8 @@
 
 @implementation InventoryDataManager
 
-NSString *kInventoryItemAddedNotification = @"InventoryItemAddedNotification";
-NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
+NSString *const kInventoryItemAddedNotification = @"InventoryItemAddedNotification";
+NSString *const kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
 
 #pragma mark -
 #pragma mark Singleton methods
@@ -95,7 +95,7 @@ NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
             [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (error != nil)
                 {
-                    NSLog(@"There was an error selling PFObject:%@, err:%@",soldItem,error);
+                    NSLog(@"There was an error adding PFObject:%@ to relationship, err:%@",inventoryItem,error);
                     return;
                 }
                 
