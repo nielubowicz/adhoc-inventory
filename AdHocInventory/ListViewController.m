@@ -35,6 +35,8 @@
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemAdded:) name:kInventoryItemAddedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemSold:) name:kInventoryItemSoldNotification object:nil];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(20.0f, 0.0f, 0.0f, 0.0f);
 }
 
 - (void)didReceiveMemoryWarning
