@@ -76,20 +76,33 @@ NSString *kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
             NSLog(@"There was an error retrieving PFObject for objectID:%@, err:%@",[item inventoryID],error);
             return;
         }
+        
         PFObject *soldItem = [PFObject objectWithClassName:kPFInventorySoldClassName];
         soldItem[kPFInventoryTSSoldKey] = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]];
-        [inventoryItem setObject:soldItem forKey:kPFInventorySoldItemKey];
         
-        [PFObject saveAllInBackground:@[soldItem,inventoryItem] block:^(BOOL succeeded, NSError *error) {
+        [soldItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error != nil)
             {
                 NSLog(@"There was an error selling PFObject:%@, err:%@",soldItem,error);
                 return;
             }
+            PFRelation *soldItemRelation = [inventoryItem relationForKey:kPFInventorySoldItemKey];
+            [soldItemRelation addObject:soldItem];
             
-            InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
-            [PFQuery clearAllCachedResults];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemSoldNotification object:item];
+            NSUInteger currentAvailableQuantity = [inventoryItem[kPFInventoryQuantityKey] unsignedIntegerValue];
+            inventoryItem[kPFInventoryQuantityKey] = [NSNumber numberWithUnsignedInt:--currentAvailableQuantity];
+            
+            [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error != nil)
+                {
+                    NSLog(@"There was an error selling PFObject:%@, err:%@",soldItem,error);
+                    return;
+                }
+                
+                InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
+                [PFQuery clearAllCachedResults];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemSoldNotification object:item];
+            }];
         }];
     }];
 }
