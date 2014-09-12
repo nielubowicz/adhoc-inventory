@@ -136,6 +136,8 @@
                       cancelButtonTitle:NSLocalizedString(@"OK",@"Alert - accept")
                       otherButtonTitles:nil] show];
     
+    [[[logInController logInView] usernameField] setClearButtonMode:UITextFieldViewModeAlways];
+    [[[logInController logInView] passwordField] setClearButtonMode:UITextFieldViewModeAlways];
     NSLog(@"Failed to log in...");
 }
 
