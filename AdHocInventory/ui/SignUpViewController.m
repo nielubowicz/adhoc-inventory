@@ -29,16 +29,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UILabel *logo = [UILabel new];
-    [logo setText:@"AdHoc Inventory"];
-    [logo setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
-    [logo setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];
-    [logo setShadowOffset:CGSizeMake(0,2)];
-    [logo setFont:[UIFont systemFontOfSize:32.0f]];
-    [logo sizeToFit];
-    
-    [[self signUpView] setLogo:logo];
-    
     HTAutocompleteTextField *email = [[HTAutocompleteTextField alloc] initWithFrame:[[[self signUpView] emailField] frame]];
     [email setAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
     [email setAutocompleteType:HTAutocompleteTypeEmail];

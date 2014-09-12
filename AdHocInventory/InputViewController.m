@@ -11,7 +11,6 @@
 #import "BarcodeGenerator.h"
 #import "InventoryItem.h"
 #import <Parse/Parse.h>
-#import "LogInViewController.h"
 #import "SignUpViewController.h"
 #import "UIView+Toast.h"
 #import "HTAutocompleteManager.h"
@@ -63,13 +62,23 @@
         [logo sizeToFit];
         
         // Create the log in view controller
-        LogInViewController *logInViewController = [[LogInViewController alloc] init];
+        PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
         [logInViewController setDelegate:self]; // Set ourselves as the delegate
-
+        [[logInViewController logInView] setLogo:logo];
+        
+        UILabel *logo2 = [UILabel new];
+        [logo2 setText:@"AdHoc Inventory"];
+        [logo2 setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
+        [logo2 setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];
+        [logo2 setShadowOffset:CGSizeMake(0,2)];
+        [logo2 setFont:[UIFont systemFontOfSize:32.0f]];
+        [logo2 sizeToFit];
+        
         // Create the sign up view controller
         SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
         [signUpViewController setDelegate:self]; // Set ourselves as the delegate
-
+        [[signUpViewController signUpView] setLogo:logo2];
+        
         // Assign our sign up controller to be displayed from the login controller
         [logInViewController setSignUpController:signUpViewController];
         

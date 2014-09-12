@@ -45,7 +45,6 @@
 		8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */; };
 		8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */; };
 		8E91C51419B0E6AF003E591E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91C51319B0E6AF003E591E /* SignUpViewController.m */; };
-		8E91C51719B0E704003E591E /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91C51619B0E704003E591E /* LogInViewController.m */; };
 		8E91C51E19B0E828003E591E /* HTAutocompleteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91C51D19B0E828003E591E /* HTAutocompleteManager.m */; };
 		8EBE9E5F19AE50320037B356 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBE9E5E19AE50320037B356 /* Parse.framework */; };
 		8EBE9E6119AE50B70037B356 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBE9E6019AE50B70037B356 /* Bolts.framework */; };
@@ -116,8 +115,6 @@
 		8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NonInterpolatedImage.m"; sourceTree = "<group>"; };
 		8E91C51219B0E6AF003E591E /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		8E91C51319B0E6AF003E591E /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
-		8E91C51519B0E704003E591E /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
-		8E91C51619B0E704003E591E /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		8E91C51C19B0E828003E591E /* HTAutocompleteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAutocompleteManager.h; sourceTree = "<group>"; };
 		8E91C51D19B0E828003E591E /* HTAutocompleteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAutocompleteManager.m; sourceTree = "<group>"; };
 		8EBE9E5E19AE50320037B356 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -286,8 +283,6 @@
 				8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */,
 				8E50A5A819A2D4490034FF50 /* DismissSegue.h */,
 				8E50A5A919A2D4490034FF50 /* DismissSegue.m */,
-				8E91C51519B0E704003E591E /* LogInViewController.h */,
-				8E91C51619B0E704003E591E /* LogInViewController.m */,
 				8E91C51219B0E6AF003E591E /* SignUpViewController.h */,
 				8E91C51319B0E6AF003E591E /* SignUpViewController.m */,
 			);
@@ -459,7 +454,6 @@
 			files = (
 				8E4B35DA1999A53F0083D367 /* ScanViewController.m in Sources */,
 				8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */,
-				8E91C51719B0E704003E591E /* LogInViewController.m in Sources */,
 				8E4B35CE1999A53E0083D367 /* AppDelegate.m in Sources */,
 				8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */,
 				8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */,
