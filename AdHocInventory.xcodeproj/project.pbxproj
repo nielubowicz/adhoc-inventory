@@ -43,12 +43,14 @@
 		8E4B35FD1999B9F70083D367 /* InventoryDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35FC1999B9F70083D367 /* InventoryDataManager.m */; };
 		8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5A919A2D4490034FF50 /* DismissSegue.m */; };
 		8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */; };
+		8E52C85819CB3AD200AFC832 /* NewOrganizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E52C85619CB3AD200AFC832 /* NewOrganizationViewController.m */; };
 		8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */; };
 		8E91C51419B0E6AF003E591E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91C51319B0E6AF003E591E /* SignUpViewController.m */; };
 		8E91C51E19B0E828003E591E /* HTAutocompleteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E91C51D19B0E828003E591E /* HTAutocompleteManager.m */; };
 		8EBE9E5F19AE50320037B356 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBE9E5E19AE50320037B356 /* Parse.framework */; };
 		8EBE9E6119AE50B70037B356 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBE9E6019AE50B70037B356 /* Bolts.framework */; };
 		8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */; };
+		8EE08E4B19CA91BA000FA6F0 /* OrganizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE08E4A19CA91BA000FA6F0 /* OrganizationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +113,8 @@
 		8E50A5A919A2D4490034FF50 /* DismissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissSegue.m; sourceTree = "<group>"; };
 		8E50A5AB19A3959A0034FF50 /* UIColor+RepurposeColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RepurposeColors.h"; sourceTree = "<group>"; };
 		8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RepurposeColors.m"; sourceTree = "<group>"; };
+		8E52C85519CB3AD200AFC832 /* NewOrganizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewOrganizationViewController.h; sourceTree = "<group>"; };
+		8E52C85619CB3AD200AFC832 /* NewOrganizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewOrganizationViewController.m; sourceTree = "<group>"; };
 		8E83BEF5199C05D100A08BAE /* UIImage+NonInterpolatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NonInterpolatedImage.h"; sourceTree = "<group>"; };
 		8E83BEF6199C05D100A08BAE /* UIImage+NonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NonInterpolatedImage.m"; sourceTree = "<group>"; };
 		8E91C51219B0E6AF003E591E /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 		8EBE9E6019AE50B70037B356 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		8ECD47F1199B0AC800480A4C /* BarcodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BarcodeGenerator.h; path = ../model/BarcodeGenerator.h; sourceTree = "<group>"; };
 		8ECD47F2199B0AC800480A4C /* BarcodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BarcodeGenerator.m; path = ../model/BarcodeGenerator.m; sourceTree = "<group>"; };
+		8EE08E4919CA91BA000FA6F0 /* OrganizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationViewController.h; sourceTree = "<group>"; };
+		8EE08E4A19CA91BA000FA6F0 /* OrganizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationViewController.m; sourceTree = "<group>"; };
 		A4F6515D4F9047208DC5D55B /* libPods-AdHocInventory.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AdHocInventory.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0F5B90A3CB641F09AB59623 /* Pods-AdHocInventory.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdHocInventory.xcconfig"; path = "Pods/Pods-AdHocInventory.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -227,6 +233,10 @@
 				8E294403199EF8220010A22A /* ItemViewController.m */,
 				8E1B4681199B29C4004F3740 /* ListViewController.h */,
 				8E1B4682199B29C4004F3740 /* ListViewController.m */,
+				8E52C85519CB3AD200AFC832 /* NewOrganizationViewController.h */,
+				8E52C85619CB3AD200AFC832 /* NewOrganizationViewController.m */,
+				8EE08E4919CA91BA000FA6F0 /* OrganizationViewController.h */,
+				8EE08E4A19CA91BA000FA6F0 /* OrganizationViewController.m */,
 				8E4B35D81999A53F0083D367 /* ScanViewController.h */,
 				8E4B35D91999A53F0083D367 /* ScanViewController.m */,
 				8E4B35DB1999A53F0083D367 /* Images.xcassets */,
@@ -458,11 +468,13 @@
 				8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */,
 				8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */,
 				8E4B35D71999A53F0083D367 /* InputViewController.m in Sources */,
+				8E52C85819CB3AD200AFC832 /* NewOrganizationViewController.m in Sources */,
 				8E4B35FD1999B9F70083D367 /* InventoryDataManager.m in Sources */,
 				8E26F17E19A7AF5700EB9C04 /* ParseDefinitions.m in Sources */,
 				8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */,
 				8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */,
 				8E91C51E19B0E828003E591E /* HTAutocompleteManager.m in Sources */,
+				8EE08E4B19CA91BA000FA6F0 /* OrganizationViewController.m in Sources */,
 				8E91C51419B0E6AF003E591E /* SignUpViewController.m in Sources */,
 				8E294404199EF8220010A22A /* ItemViewController.m in Sources */,
 				8E1B4680199B149B004F3740 /* InventoryItem.m in Sources */,
