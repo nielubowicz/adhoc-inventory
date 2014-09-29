@@ -8,6 +8,7 @@
 
 #import "ParseDefinitions.h"
 
+#pragma mark InventoryItem Keys
 NSString *const kPFInventoryClassName = @"InventoryItem";
 NSString *const kPFInventorySoldClassName = @"SoldInventoryItem";
 NSString *const kPFInventoryItemDescriptionKey = @"itemDescription";
@@ -19,3 +20,16 @@ NSString *const kPFInventoryQRCodeKey = @"qrcode";
 NSString *const kPFInventorySoldItemKey = @"soldItem";
 NSString *const kPFInventoryNotesKey = @"notes";
 NSString *const kPFInventoryQuantityKey = @"quantity";
+
+#pragma mark Organization and User Keys
+NSString *const kPFOrganizationClassName = @"Organization";
+NSString *const kPFOrganizationNameKey = @"name";
+NSString *const kPFOrganizationSanitizedNameKey = @"sanitizedName";
+NSString *const kPFOrganizationCityKey = @"city";
+NSString *const kPFOrganizationStateKey = @"state";
+NSString *const kPFOrganizationUserKey = @"organization";
+
+#pragma mar User Role definitions
+NSString *const kAdministratorRoleSuffix = @"_Administrator";
+NSString *const kEmployeeRoleSuffix = @"_Employee";
+NSString *const kVolunteerRoleSuffix = @"_Volunteer";

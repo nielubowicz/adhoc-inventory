@@ -17,3 +17,13 @@ extern NSString *const kPFInventoryQRCodeKey;
 extern NSString *const kPFInventorySoldItemKey;
 extern NSString *const kPFInventoryNotesKey;
 extern NSString *const kPFInventoryQuantityKey;
+extern NSString *const kPFOrganizationClassName;
+extern NSString *const kPFOrganizationNameKey;
+extern NSString *const kPFOrganizationSanitizedNameKey;
+extern NSString *const kPFOrganizationCityKey;
+extern NSString *const kPFOrganizationStateKey;
+extern NSString *const kPFOrganizationUserKey;
+
+extern NSString *const kAdministratorRoleSuffix;
+extern NSString *const kEmployeeRoleSuffix;
+extern NSString *const kVolunteerRoleSuffix;
