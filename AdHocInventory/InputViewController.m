@@ -7,6 +7,7 @@
 //
 
 #import "InputViewController.h"
+#import "OrganizationViewController.h"
 #import "InventoryDataManager.h"
 #import "BarcodeGenerator.h"
 #import "InventoryItem.h"
@@ -23,7 +24,7 @@
 @implementation InputViewController
 
 @synthesize category;
-@synthesize description;
+@synthesize itemDescription;
 @synthesize notes;
 @synthesize quantity;
 @synthesize quantityStepper;
@@ -52,38 +53,7 @@
 {
     [super viewDidAppear:animated];
     if (![PFUser currentUser]) { // No user logged in
-        
-        UILabel *logo = [UILabel new];
-        [logo setText:@"AdHoc Inventory"];
-        [logo setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
-        [logo setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];
-        [logo setShadowOffset:CGSizeMake(0,2)];
-        [logo setFont:[UIFont systemFontOfSize:32.0f]];
-        [logo sizeToFit];
-        
-        // Create the log in view controller
-        PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
-        [logInViewController setDelegate:self]; // Set ourselves as the delegate
-        [[logInViewController logInView] setLogo:logo];
-        
-        UILabel *logo2 = [UILabel new];
-        [logo2 setText:@"AdHoc Inventory"];
-        [logo2 setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
-        [logo2 setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];
-        [logo2 setShadowOffset:CGSizeMake(0,2)];
-        [logo2 setFont:[UIFont systemFontOfSize:32.0f]];
-        [logo2 sizeToFit];
-        
-        // Create the sign up view controller
-        SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
-        [signUpViewController setDelegate:self]; // Set ourselves as the delegate
-        [[signUpViewController signUpView] setLogo:logo2];
-        
-        // Assign our sign up controller to be displayed from the login controller
-        [logInViewController setSignUpController:signUpViewController];
-        
-        // Present the log in view controller
-        [self presentViewController:logInViewController animated:YES completion:NULL];
+        [self presentLoginViewController];
     }
 }
 
@@ -98,12 +68,49 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)updateQuantity:(UIStepper *)sender
-{
-    [quantity setText:[NSString stringWithFormat:NSLocalizedString(@"Quantity: %d",@"Quantity string"),(int)[sender value]]];
+#pragma mark -
+- (void)presentLoginViewController {
+    UILabel *logo = [UILabel new];
+    [logo setText:@"AdHoc Inventory"];
+    [logo setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
+    [logo setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];
+    [logo setShadowOffset:CGSizeMake(0,2)];
+    [logo setFont:[UIFont systemFontOfSize:32.0f]];
+    [logo sizeToFit];
+    
+    // Create the log in view controller
+    PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
+    [logInViewController setDelegate:self]; // Set ourselves as the delegate
+    [[logInViewController logInView] setLogo:logo];
+    
+    UILabel *logo2 = [UILabel new];
+    [logo2 setText:@"AdHoc Inventory"];
+    [logo2 setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
+    [logo2 setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];
+    [logo2 setShadowOffset:CGSizeMake(0,2)];
+    [logo2 setFont:[UIFont systemFontOfSize:32.0f]];
+    [logo2 sizeToFit];
+    
+    // Create the sign up view controller
+    SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
+    [signUpViewController setDelegate:self]; // Set ourselves as the delegate
+    [[signUpViewController signUpView] setLogo:logo2];
+    
+    // Assign our sign up controller to be displayed from the login controller
+    [logInViewController setSignUpController:signUpViewController];
+    
+    // Present the log in view controller
+    [self presentViewController:logInViewController animated:YES completion:NULL];
 }
 
-#pragma mark -
+- (IBAction)logout:(id)sender {
+    if ([PFUser currentUser]) {
+        [PFQuery clearAllCachedResults];
+        [PFUser logOut];
+        [self presentLoginViewController];
+    }
+}
+
 #pragma mark PFLoginViewControllerDelegate methods
 // Sent to the delegate to determine whether the log in request should be submitted to the server.
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password
@@ -175,7 +182,10 @@
 
 // Sent to the delegate when a PFUser is signed up.
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
-    [self dismissViewControllerAnimated:YES completion:nil]; // Dismiss the PFSignUpViewController
+    [self dismissViewControllerAnimated:YES completion:^{
+        // then prompt user for their organization. the first user per organization will be the de facto admin
+        [self performSegueWithIdentifier:@"showOrganizations" sender:self];
+    }];
 }
 
 // Sent to the delegate when the sign up attempt fails.
@@ -189,12 +199,17 @@
 }
 
 #pragma mark - 
-#pragma mark Keyboard methods
+#pragma mark UI / Keyboard methods
 - (IBAction)handleSingleTap:(id)sender
 {
     [[[self view] subviews] enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
         [obj resignFirstResponder];
     }];
+}
+
+- (IBAction)updateQuantity:(UIStepper *)sender
+{
+    [quantity setText:[NSString stringWithFormat:NSLocalizedString(@"Quantity: %d",@"Quantity string"),(int)[sender value]]];
 }
 
 #pragma mark -
@@ -203,7 +218,7 @@
 {
     InventoryDataManager *db = [InventoryDataManager sharedManager];
 
-    if ([[description text] length] == 0)
+    if ([[itemDescription text] length] == 0)
     {
         return;
     }
@@ -213,7 +228,7 @@
         return;
     }
     
-    [db addItem:[description text] category:[category text] notes:[notes text] quantity:(uint)[quantityStepper value]];
+    [db addItem:[itemDescription text] category:[category text] notes:[notes text] quantity:(uint)[quantityStepper value]];
     
     [[[self view] subviews] enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[UITextField class]])
