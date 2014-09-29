@@ -302,7 +302,95 @@ static NSArray *categoryAutocompleteArray;
             
         }
     }
-    
+    else if (textField.autocompleteType == HTAutocompleteTypeUSState)
+    {
+        static dispatch_once_t stateOnceToken;
+        static NSArray *autocompleteArray;
+        dispatch_once(&stateOnceToken, ^{
+            autocompleteArray = @[ @"Alabama",
+                                   @"Alaska",
+                                   @"Arizona",
+                                   @"Arkansas",
+                                   @"California",
+                                   @"Colorado",
+                                   @"Connecticut",
+                                   @"Delaware",
+                                   @"Florida",
+                                   @"Georgia",
+                                   @"Hawaii",
+                                   @"Idaho",
+                                   @"Illinois",
+                                   @"Indiana",
+                                   @"Iowa",
+                                   @"Kansas",
+                                   @"Kentucky",
+                                   @"Louisiana",
+                                   @"Maine",
+                                   @"Maryland",
+                                   @"Massachusetts",
+                                   @"Michigan",
+                                   @"Minnesota",
+                                   @"Mississippi",
+                                   @"Missouri",
+                                   @"Montana",
+                                   @"Nebraska",
+                                   @"Nevada",
+                                   @"New Hampshire",
+                                   @"New Jersey",
+                                   @"New Mexico",
+                                   @"New York",
+                                   @"North Carolina",
+                                   @"North Dakota",
+                                   @"Ohio",
+                                   @"Oklahoma",
+                                   @"Oregon ",
+                                   @"Pennsylvania",
+                                   @"Rhode Island",
+                                   @"South Carolina",
+                                   @"South Dakota",
+                                   @"Tennessee",
+                                   @"Texas",
+                                   @"Utah",
+                                   @"Vermont",
+                                   @"Virginia",
+                                   @"Washington",
+                                   @"West Virginia",
+                                   @"Wisconsin",
+                                   @"Wyoming" ];
+        });
+        
+        NSString *stringToLookFor;
+		NSArray *componentsString = [prefix componentsSeparatedByString:@","];
+        NSString *prefixLastComponent = [componentsString.lastObject stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (ignoreCase)
+        {
+            stringToLookFor = [prefixLastComponent lowercaseString];
+        }
+        else
+        {
+            stringToLookFor = prefixLastComponent;
+        }
+        
+        for (NSString *stringFromReference in autocompleteArray)
+        {
+            NSString *stringToCompare;
+            if (ignoreCase)
+            {
+                stringToCompare = [stringFromReference lowercaseString];
+            }
+            else
+            {
+                stringToCompare = stringFromReference;
+            }
+            
+            if ([stringToCompare hasPrefix:stringToLookFor])
+            {
+                return [stringFromReference stringByReplacingCharactersInRange:[stringToCompare rangeOfString:stringToLookFor] withString:@""];
+            }
+            
+        }
+    }
+
     return @"";
 }
 
