@@ -45,26 +45,68 @@ NSString *const kOrganizationAddedNotification = @"OrganziationAddedNotification
 #pragma mark Data entry methods
 -(void)addItem:(NSString *)itemDescription category:(NSString *)category notes:(NSString *)notes quantity:(NSUInteger)quantity;
 {
-    PFObject *inventoryItem = [PFObject objectWithClassName:kPFInventoryClassName];
-    inventoryItem[kPFInventoryCategoryKey] = category;
-    inventoryItem[kPFInventoryItemDescriptionKey] = itemDescription;
-    inventoryItem[kPFInventoryNotesKey] = notes;
-    inventoryItem[kPFInventoryTSAddedKey] = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]];
-    inventoryItem[kPFInventoryQuantityKey] = [NSNumber numberWithUnsignedInt:quantity];
-    [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error != nil)
+    PFQuery *employeeQuery = [PFRole query];
+    [employeeQuery whereKey:@"users" containedIn:@[[PFUser currentUser]]];
+    [employeeQuery whereKey:@"name" containsString:kVolunteerRoleSuffix];
+    [employeeQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (object == nil || error != nil)
         {
-            NSLog(@"There was an error adding PFObject:%@, err:%@",inventoryItem,error);
+            NSLog(@"The getFirstObject request failed.");
             return;
         }
-        InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
-        UIImage *qr = [UIImage createNonInterpolatedUIImageFromCIImage:[BarcodeGenerator qrcodeImageForInventoryItem:item]
-                                                                                      withScale:1.0];
-        inventoryItem[kPFInventoryQRCodeKey] = UIImagePNGRepresentation(qr);
-        [item setQrCode:qr];
-        [inventoryItem saveInBackground];
-        [PFQuery clearAllCachedResults];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemAddedNotification object:item];
+        
+        PFObject *inventoryItem = [PFObject objectWithClassName:kPFInventoryClassName];
+        inventoryItem[kPFInventoryCategoryKey] = category;
+        inventoryItem[kPFInventoryItemDescriptionKey] = itemDescription;
+        inventoryItem[kPFInventoryNotesKey] = notes;
+        inventoryItem[kPFInventoryTSAddedKey] = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]];
+        inventoryItem[kPFInventoryQuantityKey] = [NSNumber numberWithUnsignedInt:quantity];
+        
+        // get the employee role for this user, and give them read and write (temp) access
+        // temp write access is necessary to save QR code, which is dependent on the objectId (and a save)
+        PFRole *volunteerRole = (PFRole *)object;
+        PFACL *ACL = [PFACL ACL];
+        [ACL setReadAccess:YES forRole:volunteerRole];
+        [ACL setWriteAccess:YES forRole:volunteerRole];
+        [inventoryItem setACL:ACL];
+        [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error != nil)
+            {
+                NSLog(@"There was an error adding PFObject:%@, err:%@",inventoryItem,error);
+                return;
+            }
+            InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
+            UIImage *qr = [UIImage createNonInterpolatedUIImageFromCIImage:[BarcodeGenerator qrcodeImageForInventoryItem:item]
+                                                                 withScale:1.0];
+            inventoryItem[kPFInventoryQRCodeKey] = UIImagePNGRepresentation(qr);
+            [item setQrCode:qr];
+            
+            PFQuery *allRolesQuery = [PFRole query];
+            NSString *organizationName = [[volunteerRole name] stringByReplacingOccurrencesOfString:kVolunteerRoleSuffix withString:@""];
+            [allRolesQuery whereKey:@"name" containsString:organizationName];
+            [allRolesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                PFACL *ACL = [inventoryItem ACL];
+                
+                // remove write access from Volunteer role
+                // enable write access for Employee/Admin role
+                [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    PFRole *role = (PFRole *)obj;
+                    if ([role.name hasSuffix:kVolunteerRoleSuffix]) {
+                        [ACL setReadAccess:YES forRole:role];
+                        [ACL setWriteAccess:NO forRole:role];
+                    }
+                    else if ([role.name hasSuffix:kEmployeeRoleSuffix]) {
+                        [ACL setReadAccess:YES forRole:role];
+                        [ACL setWriteAccess:YES forRole:role];
+                    }
+                }];
+                
+                [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    [PFQuery clearAllCachedResults];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemAddedNotification object:item];
+                }];
+            }];
+        }];
     }];
 }
 
@@ -78,31 +120,47 @@ NSString *const kOrganizationAddedNotification = @"OrganziationAddedNotification
             return;
         }
         
-        PFObject *soldItem = [PFObject objectWithClassName:kPFInventorySoldClassName];
-        soldItem[kPFInventoryTSSoldKey] = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]];
-        
-        [soldItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error != nil)
-            {
-                NSLog(@"There was an error selling PFObject:%@, err:%@",soldItem,error);
+        // make sure user is at least an employee to be able to sell the item
+        PFQuery *queryRole = [PFRole query];
+        [queryRole whereKey:@"users" containedIn:@[[PFUser currentUser]]];
+        [queryRole whereKey:@"name" containsString:kEmployeeRoleSuffix];
+        [queryRole getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if (object == nil || error != nil) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NULL
+                                                                message:@"You aren't allowed to do that"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
                 return;
             }
-            PFRelation *soldItemRelation = [inventoryItem relationForKey:kPFInventorySoldItemKey];
-            [soldItemRelation addObject:soldItem];
+        
+            PFObject *soldItem = [PFObject objectWithClassName:kPFInventorySoldClassName];
+            soldItem[kPFInventoryTSSoldKey] = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]];
             
-            NSUInteger currentAvailableQuantity = [inventoryItem[kPFInventoryQuantityKey] unsignedIntegerValue];
-            inventoryItem[kPFInventoryQuantityKey] = [NSNumber numberWithUnsignedInt:--currentAvailableQuantity];
-            
-            [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [soldItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (error != nil)
                 {
-                    NSLog(@"There was an error adding PFObject:%@ to relationship, err:%@",inventoryItem,error);
+                    NSLog(@"There was an error selling PFObject:%@, err:%@",soldItem,error);
                     return;
                 }
+                PFRelation *soldItemRelation = [inventoryItem relationForKey:kPFInventorySoldItemKey];
+                [soldItemRelation addObject:soldItem];
                 
-                InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
-                [PFQuery clearAllCachedResults];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemSoldNotification object:item];
+                NSUInteger currentAvailableQuantity = [inventoryItem[kPFInventoryQuantityKey] unsignedIntegerValue];
+                inventoryItem[kPFInventoryQuantityKey] = [NSNumber numberWithUnsignedInt:--currentAvailableQuantity];
+                
+                [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (error != nil)
+                    {
+                        NSLog(@"There was an error adding PFObject:%@ to relationship, err:%@",inventoryItem,error);
+                        return;
+                    }
+                    
+                    InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
+                    [PFQuery clearAllCachedResults];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemSoldNotification object:item];
+                }];
             }];
         }];
     }];

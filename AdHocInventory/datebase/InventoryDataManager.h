@@ -5,8 +5,8 @@
 
 +(InventoryDataManager *)sharedManager;
 
--(void)addItem:(NSString *)itemDescription category:(NSString *)category notes:(NSString *)notes quantity:(NSUInteger)quantity; // asynchronous. Register for kInventoryItemAddedNotification notifications
--(void)sellItem:(InventoryItem *)item; // asynchronous. Register for kInventoryItemSoldNotification notifications
+-(void)addItem:(NSString *)itemDescription category:(NSString *)category notes:(NSString *)notes quantity:(NSUInteger)quantity; // async. Register for kInventoryItemAddedNotification notifications
+-(void)sellItem:(InventoryItem *)item; // async. Register for kInventoryItemSoldNotification notifications
 -(NSArray *)allCategories; // synchronous. 
 
 -(void)addOrganization:(NSString *)organizationName city:(NSString *)cityName state:(NSString *)stateName; // async. Register for kOrganizationAddedNotification

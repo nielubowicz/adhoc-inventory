@@ -19,8 +19,8 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"apiKeys" ofType:@"plist"];
     NSDictionary *infoDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     [Parse setApplicationId:infoDictionary[@"PARSE_APPLICATION_ID"] clientKey:infoDictionary[@"PARSE_CLIENT_KEY"]];
-    [PFACL setDefaultACL:[PFACL ACL] withAccessForCurrentUser:YES];
     
+    // set default ACL
     return YES;
 }
 							
