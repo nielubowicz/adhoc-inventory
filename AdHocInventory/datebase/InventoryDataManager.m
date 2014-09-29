@@ -11,6 +11,7 @@
 
 NSString *const kInventoryItemAddedNotification = @"InventoryItemAddedNotification";
 NSString *const kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
+NSString *const kOrganizationAddedNotification = @"OrganziationAddedNotification";
 
 #pragma mark -
 #pragma mark Singleton methods
@@ -113,6 +114,143 @@ NSString *const kInventoryItemSoldNotification = @"InventoryItemSoldNotification
     [query setCachePolicy:kPFCachePolicyCacheElseNetwork];
     NSArray *reqQuery = [query findObjects];
     return [reqQuery valueForKeyPath:[@"@distinctUnionOfObjects." stringByAppendingString:kPFInventoryCategoryKey]];
+}
+
+#pragma mark -
+#pragma mark Organization and User methods
+-(void)addOrganization:(NSString *)organizationName city:(NSString *)cityName state:(NSString *)stateName {
+    PFObject *organization =  [PFObject objectWithClassName:kPFOrganizationClassName];
+    [organization setObject:organizationName forKey:kPFOrganizationNameKey];
+    
+    NSRange lcEnglishRange;
+    lcEnglishRange.location = (unsigned int)'A';
+    lcEnglishRange.length = 26;
+    
+    NSRange ucEnglishRange;
+    ucEnglishRange.location = (unsigned int)'a';
+    ucEnglishRange.length = 26;
+    
+    NSRange numberRange;
+    numberRange.location = (unsigned int)'0';
+    numberRange.length = 10;
+    
+    NSMutableCharacterSet *charSet = [NSMutableCharacterSet characterSetWithCharactersInString:@" -_"];
+    [charSet formUnionWithCharacterSet:[NSCharacterSet characterSetWithRange:lcEnglishRange]];
+    [charSet formUnionWithCharacterSet:[NSCharacterSet characterSetWithRange:ucEnglishRange]];
+    [charSet formUnionWithCharacterSet:[NSCharacterSet characterSetWithRange:numberRange]];
+    
+    // sanitize to only allow [A-z][0-9][ -_]
+    NSString *sanitizedName = [[organizationName componentsSeparatedByCharactersInSet:[charSet invertedSet]] componentsJoinedByString:@""];
+    [organization setObject:organizationName forKey:kPFOrganizationNameKey];
+    [organization setObject:sanitizedName forKey:kPFOrganizationSanitizedNameKey];
+    [organization setObject:cityName forKey:kPFOrganizationCityKey];
+    [organization setObject:stateName forKey:kPFOrganizationStateKey];
+    
+    PFACL *orgACL = [PFACL ACL];
+    [orgACL setPublicReadAccess:YES];
+    [organization setACL:orgACL];
+    
+    [organization saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        PFUser *currentUser = [PFUser currentUser];
+        NSString *adminRoleName = [sanitizedName stringByAppendingString:kAdministratorRoleSuffix];
+        
+        PFACL *adminACL = [PFACL ACL];
+        [adminACL setPublicReadAccess:YES];
+        PFRole *adminRole = [PFRole roleWithName:adminRoleName acl:adminACL];
+        [adminRole.users addObject:currentUser];
+        
+        [adminRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            // user added to organization
+            if (error != nil) {
+                return;
+            }
+            NSString *employeeRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kEmployeeRoleSuffix];
+           
+            // set up employee and volunteer Roles with public read access
+            // and write access for Admin role
+            PFACL *employeeACL = [PFACL ACL];
+            [employeeACL setPublicReadAccess:YES];
+            [employeeACL setPublicWriteAccess:YES];
+            //            [employeeACL setWriteAccess:YES forRoleWithName:adminRoleName];
+            PFRole *employeeRole = [PFRole roleWithName:employeeRoleName acl:employeeACL];
+            [employeeRole.users addObject:currentUser];
+            [employeeRole.roles addObject:adminRole];
+            
+            [employeeRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error != nil) {
+                    return;
+                }
+                NSString *volunteerRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kVolunteerRoleSuffix];
+                
+                PFACL *volunteerACL = [PFACL ACL];
+                [volunteerACL setPublicReadAccess:YES];
+                [volunteerACL setPublicWriteAccess:YES];
+                //            [volunteerACL setWriteAccess:YES forRoleWithName:adminRoleName];
+                
+                PFRole *volunteerRole = [PFRole roleWithName:volunteerRoleName acl:volunteerACL];
+                [volunteerRole.users addObject:currentUser];
+                [volunteerRole.roles addObject:employeeRole];
+                [volunteerRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    [PFQuery clearAllCachedResults];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kOrganizationAddedNotification object:organization];
+                }];
+            }];
+        }];
+    }];
+}
+
+-(void)addCurrentUserToOrganization:(PFObject *)organization {
+
+    bool addAsEmployee = NO;
+    // get current user
+    PFUser *currentUser = [PFUser currentUser];
+    
+    NSString *volunteerRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kVolunteerRoleSuffix];
+    
+    PFQuery *volunteerRoleQuery = [PFRole query];
+    [volunteerRoleQuery whereKey:@"name" equalTo:volunteerRoleName];
+    [volunteerRoleQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (error != nil) {
+            return;
+        }
+        
+        PFRole *volunteerRole = (PFRole *)object;
+        [volunteerRole.users addObject:currentUser];
+        
+        [volunteerRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            // user added to organization
+            if (error != nil) {
+                return;
+            }
+            
+            if (addAsEmployee) {
+                NSString *employeeRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kEmployeeRoleSuffix];
+                
+                PFQuery *employeeRoleQuery = [PFRole query];
+                [employeeRoleQuery whereKey:@"name" equalTo:employeeRoleName];
+                [employeeRoleQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                    if (error != nil) {
+                        return;
+                    }
+                    
+                    PFRole *employeeRole = (PFRole *)object;
+                    [employeeRole.users addObject:currentUser];
+                    
+                    [employeeRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        // user added to organization
+                        if (error != nil) {
+                            return;
+                        }
+                        
+                        [PFQuery clearAllCachedResults];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kOrganizationAddedNotification object:organization];
+                    }];
+                }];
+            }
+        }];
+    }];
+    
+
 }
 
 @end

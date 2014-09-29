@@ -1,4 +1,5 @@
 @class InventoryItem;
+@class PFObject;
 
 @interface InventoryDataManager : NSObject
 
@@ -8,7 +9,11 @@
 -(void)sellItem:(InventoryItem *)item; // asynchronous. Register for kInventoryItemSoldNotification notifications
 -(NSArray *)allCategories; // synchronous. 
 
+-(void)addOrganization:(NSString *)organizationName city:(NSString *)cityName state:(NSString *)stateName; // async. Register for kOrganizationAddedNotification
+-(void)addCurrentUserToOrganization:(PFObject *)organization; // async. Register for kOrganizationAddedNotification
+
 FOUNDATION_EXPORT NSString *const kInventoryItemAddedNotification;
 FOUNDATION_EXPORT NSString *const kInventoryItemSoldNotification;
+FOUNDATION_EXPORT NSString *const kOrganizationAddedNotification;
 
 @end
