@@ -27,3 +27,5 @@ extern NSString *const kPFOrganizationUserKey;
 extern NSString *const kAdministratorRoleSuffix;
 extern NSString *const kEmployeeRoleSuffix;
 extern NSString *const kVolunteerRoleSuffix;
+extern NSString *const kPendingEmployeeRoleSuffix;
+extern NSString *const kPendingVolunteerRoleSuffix;

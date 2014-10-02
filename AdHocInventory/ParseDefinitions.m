@@ -33,3 +33,5 @@ NSString *const kPFOrganizationUserKey = @"organization";
 NSString *const kAdministratorRoleSuffix = @"_Administrator";
 NSString *const kEmployeeRoleSuffix = @"_Employee";
 NSString *const kVolunteerRoleSuffix = @"_Volunteer";
+NSString *const kPendingEmployeeRoleSuffix = @"_PendingEmployee";
+NSString *const kPendingVolunteerRoleSuffix = @"_PendingVolunteer";

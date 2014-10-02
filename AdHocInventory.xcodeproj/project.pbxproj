@@ -31,7 +31,6 @@
 		8E4B35CA1999A53E0083D367 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35C91999A53E0083D367 /* main.m */; };
 		8E4B35CE1999A53E0083D367 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35CD1999A53E0083D367 /* AppDelegate.m */; };
 		8E4B35D11999A53F0083D367 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4B35CF1999A53F0083D367 /* Main_iPhone.storyboard */; };
-		8E4B35D41999A53F0083D367 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4B35D21999A53F0083D367 /* Main_iPad.storyboard */; };
 		8E4B35D71999A53F0083D367 /* InputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35D61999A53F0083D367 /* InputViewController.m */; };
 		8E4B35DA1999A53F0083D367 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35D91999A53F0083D367 /* ScanViewController.m */; };
 		8E4B35DC1999A53F0083D367 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E4B35DB1999A53F0083D367 /* Images.xcassets */; };
@@ -41,6 +40,10 @@
 		8E4B35ED1999A53F0083D367 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E4B35EB1999A53F0083D367 /* InfoPlist.strings */; };
 		8E4B35EF1999A53F0083D367 /* AdHocInventoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35EE1999A53F0083D367 /* AdHocInventoryTests.m */; };
 		8E4B35FD1999B9F70083D367 /* InventoryDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B35FC1999B9F70083D367 /* InventoryDataManager.m */; };
+		8E4F094E19DA5B760062DC42 /* PendingEmployeesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4F094D19DA5B760062DC42 /* PendingEmployeesViewController.m */; };
+		8E4F095119DB347F0062DC42 /* PendingVolunteersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4F095019DB347F0062DC42 /* PendingVolunteersViewController.m */; };
+		8E4F095619DBA44A0062DC42 /* AnalyticsOverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4F095519DBA44A0062DC42 /* AnalyticsOverviewViewController.m */; };
+		8E4F095919DC65D80062DC42 /* CategoryAnalyticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4F095819DC65D80062DC42 /* CategoryAnalyticsViewController.m */; };
 		8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5A919A2D4490034FF50 /* DismissSegue.m */; };
 		8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E50A5AC19A3959A0034FF50 /* UIColor+RepurposeColors.m */; };
 		8E52C85819CB3AD200AFC832 /* NewOrganizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E52C85619CB3AD200AFC832 /* NewOrganizationViewController.m */; };
@@ -95,7 +98,6 @@
 		8E4B35CC1999A53E0083D367 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8E4B35CD1999A53E0083D367 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8E4B35D01999A53F0083D367 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		8E4B35D31999A53F0083D367 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		8E4B35D51999A53F0083D367 /* InputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputViewController.h; sourceTree = "<group>"; };
 		8E4B35D61999A53F0083D367 /* InputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputViewController.m; sourceTree = "<group>"; };
 		8E4B35D81999A53F0083D367 /* ScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
@@ -109,6 +111,14 @@
 		8E4B35F81999B9AF0083D367 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		8E4B35FB1999B9F70083D367 /* InventoryDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryDataManager.h; sourceTree = "<group>"; };
 		8E4B35FC1999B9F70083D367 /* InventoryDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryDataManager.m; sourceTree = "<group>"; };
+		8E4F094C19DA5B760062DC42 /* PendingEmployeesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PendingEmployeesViewController.h; sourceTree = "<group>"; };
+		8E4F094D19DA5B760062DC42 /* PendingEmployeesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PendingEmployeesViewController.m; sourceTree = "<group>"; };
+		8E4F094F19DB347F0062DC42 /* PendingVolunteersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PendingVolunteersViewController.h; sourceTree = "<group>"; };
+		8E4F095019DB347F0062DC42 /* PendingVolunteersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PendingVolunteersViewController.m; sourceTree = "<group>"; };
+		8E4F095419DBA44A0062DC42 /* AnalyticsOverviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyticsOverviewViewController.h; sourceTree = "<group>"; };
+		8E4F095519DBA44A0062DC42 /* AnalyticsOverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalyticsOverviewViewController.m; sourceTree = "<group>"; };
+		8E4F095719DC65D80062DC42 /* CategoryAnalyticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryAnalyticsViewController.h; sourceTree = "<group>"; };
+		8E4F095819DC65D80062DC42 /* CategoryAnalyticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryAnalyticsViewController.m; sourceTree = "<group>"; };
 		8E50A5A819A2D4490034FF50 /* DismissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissSegue.h; sourceTree = "<group>"; };
 		8E50A5A919A2D4490034FF50 /* DismissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissSegue.m; sourceTree = "<group>"; };
 		8E50A5AB19A3959A0034FF50 /* UIColor+RepurposeColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RepurposeColors.h"; sourceTree = "<group>"; };
@@ -223,10 +233,10 @@
 				8E83BEF1199C054600A08BAE /* barcodes */,
 				8ECD47F0199B0AAD00480A4C /* model */,
 				8E4B35FA1999B9F70083D367 /* datebase */,
+				8E4F094B19DA5B3E0062DC42 /* ViewControllers */,
 				8E4B35CC1999A53E0083D367 /* AppDelegate.h */,
 				8E4B35CD1999A53E0083D367 /* AppDelegate.m */,
 				8E4B35CF1999A53F0083D367 /* Main_iPhone.storyboard */,
-				8E4B35D21999A53F0083D367 /* Main_iPad.storyboard */,
 				8E4B35D51999A53F0083D367 /* InputViewController.h */,
 				8E4B35D61999A53F0083D367 /* InputViewController.m */,
 				8E294402199EF8220010A22A /* ItemViewController.h */,
@@ -284,6 +294,29 @@
 				8E4B35FC1999B9F70083D367 /* InventoryDataManager.m */,
 			);
 			path = datebase;
+			sourceTree = "<group>";
+		};
+		8E4F094B19DA5B3E0062DC42 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8E4F095319DBA3E20062DC42 /* Analytics */,
+				8E4F094C19DA5B760062DC42 /* PendingEmployeesViewController.h */,
+				8E4F094D19DA5B760062DC42 /* PendingEmployeesViewController.m */,
+				8E4F094F19DB347F0062DC42 /* PendingVolunteersViewController.h */,
+				8E4F095019DB347F0062DC42 /* PendingVolunteersViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		8E4F095319DBA3E20062DC42 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				8E4F095419DBA44A0062DC42 /* AnalyticsOverviewViewController.h */,
+				8E4F095519DBA44A0062DC42 /* AnalyticsOverviewViewController.m */,
+				8E4F095719DC65D80062DC42 /* CategoryAnalyticsViewController.h */,
+				8E4F095819DC65D80062DC42 /* CategoryAnalyticsViewController.m */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		8E50A5A719A2D4030034FF50 /* ui */ = {
@@ -406,7 +439,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E4B35D41999A53F0083D367 /* Main_iPad.storyboard in Resources */,
 				8E14C00C19A69382001E67DF /* apiKeys.plist in Resources */,
 				8E4B35DC1999A53F0083D367 /* Images.xcassets in Resources */,
 				8E4B35D11999A53F0083D367 /* Main_iPhone.storyboard in Resources */,
@@ -464,11 +496,15 @@
 			files = (
 				8E4B35DA1999A53F0083D367 /* ScanViewController.m in Sources */,
 				8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */,
+				8E4F094E19DA5B760062DC42 /* PendingEmployeesViewController.m in Sources */,
 				8E4B35CE1999A53E0083D367 /* AppDelegate.m in Sources */,
 				8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */,
+				8E4F095919DC65D80062DC42 /* CategoryAnalyticsViewController.m in Sources */,
 				8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */,
+				8E4F095619DBA44A0062DC42 /* AnalyticsOverviewViewController.m in Sources */,
 				8E4B35D71999A53F0083D367 /* InputViewController.m in Sources */,
 				8E52C85819CB3AD200AFC832 /* NewOrganizationViewController.m in Sources */,
+				8E4F095119DB347F0062DC42 /* PendingVolunteersViewController.m in Sources */,
 				8E4B35FD1999B9F70083D367 /* InventoryDataManager.m in Sources */,
 				8E26F17E19A7AF5700EB9C04 /* ParseDefinitions.m in Sources */,
 				8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */,
@@ -515,14 +551,6 @@
 				8E4B35D01999A53F0083D367 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		8E4B35D21999A53F0083D367 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8E4B35D31999A53F0083D367 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		8E4B35EB1999A53F0083D367 /* InfoPlist.strings */ = {

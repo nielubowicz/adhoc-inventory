@@ -5,13 +5,21 @@
 
 @interface InventoryDataManager()
 
+@property (strong,nonatomic) NSString *currentOrganizationName;
+
 @end
 
 @implementation InventoryDataManager
 
+@synthesize currentOrganizationName;
+
 NSString *const kInventoryItemAddedNotification = @"InventoryItemAddedNotification";
 NSString *const kInventoryItemSoldNotification = @"InventoryItemSoldNotification";
 NSString *const kOrganizationAddedNotification = @"OrganziationAddedNotification";
+NSString *const kVolunteerApprovedNotification = @"VolunteerApprovedNotification";
+NSString *const kEmployeeApprovedNotification = @"EmployeeApprovedNotification";
+NSString *const kVolunteerDeniedNotification = @"VolunteerDeniedNotification";
+NSString *const kEmployeeDeniedNotification = @"EmployeeDeniedNotification";
 
 #pragma mark -
 #pragma mark Singleton methods
@@ -83,8 +91,18 @@ NSString *const kOrganizationAddedNotification = @"OrganziationAddedNotification
             
             PFQuery *allRolesQuery = [PFRole query];
             NSString *organizationName = [[volunteerRole name] stringByReplacingOccurrencesOfString:kVolunteerRoleSuffix withString:@""];
-            [allRolesQuery whereKey:@"name" containsString:organizationName];
+            @synchronized (self) {
+                [self setCurrentOrganizationName:organizationName];
+            }
+            
+            [allRolesQuery whereKey:@"name" containsString:self.currentOrganizationName];
             [allRolesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (error != nil)
+                {
+                    NSLog(@"Could not find roles for %@, error: %@",self.currentOrganizationName, error);
+                    return;
+                }
+
                 PFACL *ACL = [inventoryItem ACL];
                 
                 // remove write access from Volunteer role
@@ -176,6 +194,10 @@ NSString *const kOrganizationAddedNotification = @"OrganziationAddedNotification
 
 #pragma mark -
 #pragma mark Organization and User methods
+// This method automatically creates the _Admin role for this organization
+// The _Admin role will be able to make changes to organization rosters (admitting new employees, etc)
+// as well as normal _Employee functions
+// TODO: Resolve conflicts if someone registers for a duplicate organization / troll?
 -(void)addOrganization:(NSString *)organizationName city:(NSString *)cityName state:(NSString *)stateName {
     PFObject *organization =  [PFObject objectWithClassName:kPFOrganizationClassName];
     [organization setObject:organizationName forKey:kPFOrganizationNameKey];
@@ -199,6 +221,11 @@ NSString *const kOrganizationAddedNotification = @"OrganziationAddedNotification
     
     // sanitize to only allow [A-z][0-9][ -_]
     NSString *sanitizedName = [[organizationName componentsSeparatedByCharactersInSet:[charSet invertedSet]] componentsJoinedByString:@""];
+    
+    @synchronized(self) {
+        [self setCurrentOrganizationName:sanitizedName];
+    }
+    
     [organization setObject:organizationName forKey:kPFOrganizationNameKey];
     [organization setObject:sanitizedName forKey:kPFOrganizationSanitizedNameKey];
     [organization setObject:cityName forKey:kPFOrganizationCityKey];
@@ -219,7 +246,9 @@ NSString *const kOrganizationAddedNotification = @"OrganziationAddedNotification
         
         [adminRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             // user added to organization
-            if (error != nil) {
+            if (error != nil)
+            {
+                NSLog(@"Could not save administrator role for %@, error: %@",organization[kPFOrganizationSanitizedNameKey],error);
                 return;
             }
             NSString *employeeRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kEmployeeRoleSuffix];
@@ -228,27 +257,46 @@ NSString *const kOrganizationAddedNotification = @"OrganziationAddedNotification
             // and write access for Admin role
             PFACL *employeeACL = [PFACL ACL];
             [employeeACL setPublicReadAccess:YES];
-            [employeeACL setPublicWriteAccess:YES];
-            //            [employeeACL setWriteAccess:YES forRoleWithName:adminRoleName];
+            [employeeACL setWriteAccess:YES forRoleWithName:adminRoleName];
             PFRole *employeeRole = [PFRole roleWithName:employeeRoleName acl:employeeACL];
             [employeeRole.users addObject:currentUser];
             [employeeRole.roles addObject:adminRole];
             
             [employeeRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (error != nil) {
+                if (error != nil)
+                {
+                    NSLog(@"Could not save employee role for %@, error: %@",organization[kPFOrganizationSanitizedNameKey],error);
                     return;
                 }
                 NSString *volunteerRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kVolunteerRoleSuffix];
                 
                 PFACL *volunteerACL = [PFACL ACL];
                 [volunteerACL setPublicReadAccess:YES];
-                [volunteerACL setPublicWriteAccess:YES];
-                //            [volunteerACL setWriteAccess:YES forRoleWithName:adminRoleName];
+                [volunteerACL setWriteAccess:YES forRoleWithName:adminRoleName];
                 
                 PFRole *volunteerRole = [PFRole roleWithName:volunteerRoleName acl:volunteerACL];
-                [volunteerRole.users addObject:currentUser];
                 [volunteerRole.roles addObject:employeeRole];
                 [volunteerRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (error != nil)
+                    {
+                        NSLog(@"Could not save volunteer role for %@, error: %@",organization[kPFOrganizationSanitizedNameKey],error);
+                        return;
+                    }
+                    // create pending_ roles for this organization: employee and volunteer
+                    // make them public readable and writable
+                    NSString *pendingVolunteerRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kPendingVolunteerRoleSuffix];
+                    PFACL *pendingVolunteerACL = [PFACL ACL];
+                    [pendingVolunteerACL setPublicReadAccess:YES];
+                    [pendingVolunteerACL setPublicWriteAccess:YES];
+                    PFRole *pendingVolunteerRole = [PFRole roleWithName:pendingVolunteerRoleName acl:pendingVolunteerACL];
+                    
+                    NSString *pendingEmployeeRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kPendingEmployeeRoleSuffix];
+                    PFACL *pendingEmployeeACL = [PFACL ACL];
+                    [pendingEmployeeACL setPublicReadAccess:YES];
+                    [pendingEmployeeACL setPublicWriteAccess:YES];
+                    PFRole *pendingEmployeeRole = [PFRole roleWithName:pendingEmployeeRoleName acl:pendingEmployeeACL];
+                    
+                    [PFObject saveAllInBackground:@[pendingEmployeeRole,pendingVolunteerRole]];
                     [PFQuery clearAllCachedResults];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kOrganizationAddedNotification object:organization];
                 }];
@@ -257,58 +305,212 @@ NSString *const kOrganizationAddedNotification = @"OrganziationAddedNotification
     }];
 }
 
+# pragma mark Adding New Users
+// adds the current user to _PendingEmployee and _PendingVolunteer roles
+// which are later verified by the Admin to become _Employee and _Volunteer roles
 -(void)addCurrentUserToOrganization:(PFObject *)organization {
-
-    bool addAsEmployee = NO;
     // get current user
     PFUser *currentUser = [PFUser currentUser];
     
-    NSString *volunteerRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kVolunteerRoleSuffix];
+    // and then add them to the pending employee and volunteer roles
+    NSString *volunteerRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kPendingVolunteerRoleSuffix];
     
     PFQuery *volunteerRoleQuery = [PFRole query];
     [volunteerRoleQuery whereKey:@"name" equalTo:volunteerRoleName];
     [volunteerRoleQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (error != nil) {
+        if (error != nil)
+        {
+            NSLog(@"Could not find volunteer role for %@, error: %@",organization[kPFOrganizationSanitizedNameKey],error);
             return;
         }
         
         PFRole *volunteerRole = (PFRole *)object;
         [volunteerRole.users addObject:currentUser];
         
-        [volunteerRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            // user added to organization
-            if (error != nil) {
+        NSString *employeeRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kPendingEmployeeRoleSuffix];
+        
+        PFQuery *employeeRoleQuery = [PFRole query];
+        [employeeRoleQuery whereKey:@"name" equalTo:employeeRoleName];
+        [employeeRoleQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if (error != nil)
+            {
+                NSLog(@"Could not find employee role for %@, error: %@",organization[kPFOrganizationSanitizedNameKey],error);
                 return;
             }
             
-            if (addAsEmployee) {
-                NSString *employeeRoleName = [organization[kPFOrganizationSanitizedNameKey] stringByAppendingString:kEmployeeRoleSuffix];
-                
-                PFQuery *employeeRoleQuery = [PFRole query];
-                [employeeRoleQuery whereKey:@"name" equalTo:employeeRoleName];
-                [employeeRoleQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                    if (error != nil) {
-                        return;
-                    }
-                    
-                    PFRole *employeeRole = (PFRole *)object;
-                    [employeeRole.users addObject:currentUser];
-                    
-                    [employeeRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                        // user added to organization
-                        if (error != nil) {
-                            return;
-                        }
-                        
-                        [PFQuery clearAllCachedResults];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kOrganizationAddedNotification object:organization];
-                    }];
-                }];
-            }
+            PFRole *employeeRole = (PFRole *)object;
+            [employeeRole.users addObject:currentUser];
+            
+            [PFObject saveAllInBackground:@[volunteerRole,employeeRole] block:^(BOOL succeeded, NSError *error) {
+                [PFQuery clearAllCachedResults];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kOrganizationAddedNotification object:organization];
+            }];
         }];
     }];
-    
-
 }
+
+// The _Volunteer role will not have write privileges beyond data entry
+// So they will not be able to sell Items
+- (void)addPendingVolunteerToOrganization:(PFUser *)approvedUser
+{
+    // move this Volunteer from pending to a real Volunteer
+    PFQuery *pendingRole = [PFRole query];
+    [pendingRole whereKey:@"users" containedIn:@[approvedUser]];
+    [pendingRole whereKey:@"name" containsString:kPendingVolunteerRoleSuffix];
+    [pendingRole getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (object == nil || error != nil) {
+            NSLog(@"There was a problem: err,%@",error);
+            return;
+        }
+        
+        PFRole *pendingVolunteer = (PFRole *)object;
+        [[pendingVolunteer users] removeObject:approvedUser];
+        
+        @synchronized(self) {
+            if (self.currentOrganizationName == nil)
+            {
+                [self setCurrentOrganizationName:[[pendingVolunteer name] stringByReplacingOccurrencesOfString:kPendingVolunteerRoleSuffix withString:@""]];
+            }
+        }
+        PFQuery *volunteerRoleQuery = [PFRole query];
+        [volunteerRoleQuery whereKey:@"name" equalTo:[self.currentOrganizationName stringByAppendingString:kVolunteerRoleSuffix]];
+        
+        [volunteerRoleQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if (error != nil)
+            {
+                NSLog(@"Could not find volunteer role for %@, error: %@",self.currentOrganizationName,error);
+                return;
+            }
+            PFRole *newVolunteer = (PFRole *)object;
+            [newVolunteer.users addObject:approvedUser];
+            
+            [PFObject saveAllInBackground:@[pendingVolunteer,newVolunteer] block:^(BOOL succeeded, NSError *error) {
+                [PFQuery clearAllCachedResults];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kVolunteerApprovedNotification object:approvedUser];
+            }];
+        }];
+    }];
+}
+
+- (void)removePendingVolunteer:(PFUser *)deniedUser
+{
+    PFQuery *pendingRole = [PFRole query];
+    [pendingRole whereKey:@"users" containedIn:@[deniedUser]];
+    [pendingRole whereKey:@"name" containsString:kPendingVolunteerRoleSuffix];
+    [pendingRole getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (object == nil || error != nil) {
+            NSLog(@"There was a problem: err,%@",error);
+            return;
+        }
+        
+        PFRole *pendingVolunteer = (PFRole *)object;
+        [[pendingVolunteer users] removeObject:deniedUser];
+        
+        [pendingVolunteer saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error != nil)
+            {
+                NSLog(@"Could not save pending volunteer role for %@, error: %@",deniedUser,error);
+                return;
+            }
+            
+            [deniedUser deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!succeeded) {
+                    NSLog(@"There was an error deleting user: %@", deniedUser);
+                    return;
+                }
+                
+                [PFQuery clearAllCachedResults];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kVolunteerDeniedNotification object:nil];
+            }];
+        }];
+    }];
+}
+
+// The _Employee role will have write privileges to data but not users
+// So they will be able to sell Items but not admit new employees or other administrative roles
+// _Employee role is a child of _Volunteer Role, so the user only needs to be added to _Employee Role
+- (void)addPendingEmployeeToOrganization:(PFUser *)approvedUser
+{
+    PFQuery *pendingRole = [PFRole query];
+    [pendingRole whereKey:@"users" containedIn:@[approvedUser]];
+    [pendingRole whereKey:@"name" containsString:kPendingEmployeeRoleSuffix];
+    [pendingRole getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (object == nil || error != nil) {
+            NSLog(@"There was a problem: err,%@",error);
+            return;
+        }
+        
+        PFRole *pendingEmployee = (PFRole *)object;
+        [[pendingEmployee users] removeObject:approvedUser];
+        @synchronized(self) {
+            if (self.currentOrganizationName == nil)
+            {
+                [self setCurrentOrganizationName:[[pendingEmployee name] stringByReplacingOccurrencesOfString:kPendingEmployeeRoleSuffix withString:@""]];
+            }
+        }
+        
+        PFQuery *pendingVolunteerRole = [PFRole query];
+        [pendingVolunteerRole whereKey:@"users" containedIn:@[approvedUser]];
+        [pendingVolunteerRole whereKey:@"name" containsString:kPendingVolunteerRoleSuffix];
+        [pendingVolunteerRole getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if (error != nil)
+            {
+                NSLog(@"Could not find pending volunteer role for %@, error: %@",approvedUser,error);
+                return;
+            }
+            PFRole *pendingVolunteer = (PFRole *)object;
+            [[pendingVolunteer users] removeObject:approvedUser];
+            
+            PFQuery *employeeRoleQuery = [PFRole query];
+            [employeeRoleQuery whereKey:@"name" equalTo:[self.currentOrganizationName stringByAppendingString:kEmployeeRoleSuffix]];
+            
+            [employeeRoleQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                if (error != nil)
+                {
+                    NSLog(@"Could not find employee role for %@, error: %@",self.currentOrganizationName,error);
+                    return;
+                }
+                PFRole *newEmployee = (PFRole *)object;
+                [newEmployee.users addObject:approvedUser];
+                
+                [PFObject saveAllInBackground:@[pendingEmployee,newEmployee,pendingVolunteer] block:^(BOOL succeeded, NSError *error) {
+                    [PFQuery clearAllCachedResults];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kEmployeeApprovedNotification object:approvedUser];
+                }];
+            }];
+        }];
+    }];
+}
+
+- (void)removePendingEmployee:(PFUser *)deniedUser
+{
+    PFQuery *pendingRole = [PFRole query];
+    [pendingRole whereKey:@"users" containedIn:@[deniedUser]];
+    [pendingRole whereKey:@"name" containsString:kPendingEmployeeRoleSuffix];
+    [pendingRole getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (object == nil || error != nil) {
+            NSLog(@"There was a problem: err,%@",error);
+            return;
+        }
+        
+        PFRole *pendingEmployee = (PFRole *)object;
+        [[pendingEmployee users] removeObject:deniedUser];
+        
+        [pendingEmployee saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [PFQuery clearAllCachedResults];
+            [deniedUser deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!succeeded) {
+                    NSLog(@"There was an error deleting user: %@", deniedUser);
+                    return;
+                }
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kEmployeeDeniedNotification object:nil];
+            }];
+        }];
+    }];
+}
+
+#pragma mark Removing Current users
+// TODO: Remove current employees and volunteers from the system - remember to delete both for current employees
 
 @end
