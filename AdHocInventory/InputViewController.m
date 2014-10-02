@@ -16,6 +16,7 @@
 #import "UIView+Toast.h"
 #import "HTAutocompleteManager.h"
 #import "HTAutocompleteTextField.h"
+#import "PendingEmployeesViewController.h"
 
 @interface InputViewController ()
 
@@ -46,6 +47,24 @@
             layer.borderColor = [UIColor lightTealColor].CGColor;
             layer.borderWidth = 2.0f;
         }
+    }];
+    
+    PFQuery *queryRole = [PFRole query];
+    [queryRole whereKey:@"users" containedIn:@[[PFUser currentUser]]];
+    [queryRole whereKey:@"name" containsString:kAdministratorRoleSuffix];
+    [queryRole getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (object == nil || error != nil) {
+            NSLog(@"Not admin, won't show new stuff");
+            return;
+        }
+        
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+        
+        // add Pending Employees / Volunteers
+        UIViewController *pending = [sb instantiateViewControllerWithIdentifier:@"pendingEmployees"];
+        [self.tabBarController performSelectorOnMainThread:@selector(setViewControllers:)
+                                                withObject:[[[self tabBarController] viewControllers] arrayByAddingObject:pending]
+                                             waitUntilDone:YES];
     }];
 }
 
