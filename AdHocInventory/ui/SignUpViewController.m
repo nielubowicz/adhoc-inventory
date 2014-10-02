@@ -35,7 +35,7 @@
     [email setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Email",@"Signup - email placeholder text")
                                                                     attributes:@{NSForegroundColorAttributeName: [self.signUpView.emailField.attributedPlaceholder attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL]}]];
 
-//  [email setTextAlignment:NSTextAlignmentCenter]; until the bug in HTAutoComplete is resolved, just use left align
+    [email setTextAlignment:NSTextAlignmentCenter]; 
     [email setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     [email setTextColor:[self.signUpView.emailField textColor]];
     [email.layer setShadowColor:[self.signUpView.emailField.layer shadowColor]];

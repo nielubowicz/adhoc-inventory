@@ -11,7 +11,7 @@
 
 @interface BarcodeGenerator : NSObject
 
-+(NSString *)inventoryIDForFormatString:(NSString *)str shortFormat:(BOOL)isShort;
++(NSString *)inventoryIDForFormatString:(NSString *)str;
 +(CIImage *)qrcodeImageForInventoryItem:(InventoryItem *)item;
 
 @end

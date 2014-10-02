@@ -115,7 +115,7 @@
 
 -(void)setItemIDFromDetectionString:(NSString *)string
 {
-    scannedItemID = [BarcodeGenerator inventoryIDForFormatString:string shortFormat:NO];
+    scannedItemID = [BarcodeGenerator inventoryIDForFormatString:string];
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender

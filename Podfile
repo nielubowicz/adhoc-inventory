@@ -4,11 +4,11 @@
 target "AdHocInventory" do
 pod "BSKeyboardControls"
 pod "Toast","~> 2.3"
-pod "HTAutocompleteTextField"
+pod "HTAutocompleteTextField", :git => 'https://github.com/nielubowicz/HTAutocompleteTextField.git'
 end
 
 target "AdHocInventory" do
 pod "BSKeyboardControls"
 pod "Toast","~> 2.3"
-pod "HTAutocompleteTextField"
+pod "HTAutocompleteTextField", :git => 'https://github.com/nielubowicz/HTAutocompleteTextField.git'
 end
