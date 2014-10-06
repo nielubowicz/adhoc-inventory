@@ -21,6 +21,8 @@ NSString *const kEmployeeApprovedNotification = @"EmployeeApprovedNotification";
 NSString *const kVolunteerDeniedNotification = @"VolunteerDeniedNotification";
 NSString *const kEmployeeDeniedNotification = @"EmployeeDeniedNotification";
 
+// TODO: Move this to Cloud code in Parse, probably
+
 #pragma mark -
 #pragma mark Singleton methods
 +(id)sharedManager
