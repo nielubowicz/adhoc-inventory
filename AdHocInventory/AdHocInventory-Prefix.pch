@@ -17,4 +17,5 @@
 
 #import "UIImage+NonInterpolatedImage.h"
 #import "UIColor+RepurposeColors.h"
+#import "UIViewController+DefaultBackground.h"
 #import "ParseDefinitions.h"

@@ -55,16 +55,19 @@
 
 -(IBAction)sellItem:(id)sender
 {
+    if (item == nil)
+    {
+        [self performSegueWithIdentifier:@"dismissItem" sender:self];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemSold:) name:kInventoryItemSoldNotification object:nil];
-    
     [[InventoryDataManager sharedManager] sellItem:item];
 }
 
 -(void)itemSold:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self performSegueWithIdentifier:@"dismiss" sender:_sellButton];
+    [self performSegueWithIdentifier:@"dismissItem" sender:self];
 }
 
 /*

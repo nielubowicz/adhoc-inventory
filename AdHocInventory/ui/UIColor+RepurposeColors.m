@@ -12,6 +12,7 @@
 
 +(UIColor *)lightTealColor
 {
-    return [UIColor colorWithHue:184.0/255.0 saturation:0.75f brightness:0.79f alpha:1.0];
+    return [UIColor colorWithRed:46/255.0f green:164/255.0f blue:238/255.0f alpha:1.0];
 }
+
 @end

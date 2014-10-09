@@ -27,13 +27,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setDefaultBackground];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)reset:(UIStoryboardSegue *)segue {
+    //do stuff
 }
 
 - (PFTableViewCell *)tableView:(UITableView *)tableView

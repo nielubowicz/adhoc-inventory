@@ -27,6 +27,7 @@ static PFQuery *userRelationQuery = nil;
 {
     [super viewDidLoad];
     
+    [self setDefaultBackground];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pendingEmployeeChanged:) name:kEmployeeApprovedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pendingEmployeeChanged:) name:kEmployeeDeniedNotification object:nil];
     

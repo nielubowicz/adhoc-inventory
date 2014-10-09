@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5F532C42DA60405F9E9E34F3 /* libPods-AdHocInventory.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4F6515D4F9047208DC5D55B /* libPods-AdHocInventory.a */; };
+		8E0C4E9B19E37C6D006D1487 /* UIViewController+DefaultBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0C4E9A19E37C6D006D1487 /* UIViewController+DefaultBackground.m */; };
 		8E14C00319A6908E001E67DF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14BFFB19A6908E001E67DF /* AudioToolbox.framework */; };
 		8E14C00419A6908E001E67DF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14BFFC19A6908E001E67DF /* CFNetwork.framework */; };
 		8E14C00519A6908E001E67DF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14BFFD19A6908E001E67DF /* CoreLocation.framework */; };
@@ -22,6 +23,7 @@
 		8E14C01219A69520001E67DF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E14C01119A69520001E67DF /* Security.framework */; };
 		8E1B4680199B149B004F3740 /* InventoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B467F199B149B004F3740 /* InventoryItem.m */; };
 		8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B4682199B29C4004F3740 /* ListViewController.m */; };
+		8E229EBD19E6F85C0044E569 /* AHITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E229EBC19E6F85C0044E569 /* AHITextField.m */; };
 		8E26F17E19A7AF5700EB9C04 /* ParseDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E26F17D19A7AF5700EB9C04 /* ParseDefinitions.m */; };
 		8E294404199EF8220010A22A /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E294403199EF8220010A22A /* ItemViewController.m */; };
 		8E4B35BE1999A53E0083D367 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4B35BD1999A53E0083D367 /* Foundation.framework */; };
@@ -67,6 +69,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8E0C4E9919E37C6D006D1487 /* UIViewController+DefaultBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DefaultBackground.h"; sourceTree = "<group>"; };
+		8E0C4E9A19E37C6D006D1487 /* UIViewController+DefaultBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DefaultBackground.m"; sourceTree = "<group>"; };
 		8E14BFFB19A6908E001E67DF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8E14BFFC19A6908E001E67DF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8E14BFFD19A6908E001E67DF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -83,6 +87,8 @@
 		8E1B467F199B149B004F3740 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
 		8E1B4681199B29C4004F3740 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		8E1B4682199B29C4004F3740 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
+		8E229EBB19E6F85C0044E569 /* AHITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHITextField.h; sourceTree = "<group>"; };
+		8E229EBC19E6F85C0044E569 /* AHITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHITextField.m; sourceTree = "<group>"; };
 		8E26F17C19A7AF5700EB9C04 /* ParseDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDefinitions.h; sourceTree = "<group>"; };
 		8E26F17D19A7AF5700EB9C04 /* ParseDefinitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDefinitions.m; sourceTree = "<group>"; };
 		8E294402199EF8220010A22A /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
@@ -328,6 +334,10 @@
 				8E50A5A919A2D4490034FF50 /* DismissSegue.m */,
 				8E91C51219B0E6AF003E591E /* SignUpViewController.h */,
 				8E91C51319B0E6AF003E591E /* SignUpViewController.m */,
+				8E0C4E9919E37C6D006D1487 /* UIViewController+DefaultBackground.h */,
+				8E0C4E9A19E37C6D006D1487 /* UIViewController+DefaultBackground.m */,
+				8E229EBB19E6F85C0044E569 /* AHITextField.h */,
+				8E229EBC19E6F85C0044E569 /* AHITextField.m */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -498,6 +508,7 @@
 				8E50A5AA19A2D4490034FF50 /* DismissSegue.m in Sources */,
 				8E4F094E19DA5B760062DC42 /* PendingEmployeesViewController.m in Sources */,
 				8E4B35CE1999A53E0083D367 /* AppDelegate.m in Sources */,
+				8E0C4E9B19E37C6D006D1487 /* UIViewController+DefaultBackground.m in Sources */,
 				8E1B4683199B29C4004F3740 /* ListViewController.m in Sources */,
 				8E4F095919DC65D80062DC42 /* CategoryAnalyticsViewController.m in Sources */,
 				8ECD47F3199B0AC800480A4C /* BarcodeGenerator.m in Sources */,
@@ -507,6 +518,7 @@
 				8E4F095119DB347F0062DC42 /* PendingVolunteersViewController.m in Sources */,
 				8E4B35FD1999B9F70083D367 /* InventoryDataManager.m in Sources */,
 				8E26F17E19A7AF5700EB9C04 /* ParseDefinitions.m in Sources */,
+				8E229EBD19E6F85C0044E569 /* AHITextField.m in Sources */,
 				8E50A5AD19A3959A0034FF50 /* UIColor+RepurposeColors.m in Sources */,
 				8E83BEF7199C05D100A08BAE /* UIImage+NonInterpolatedImage.m in Sources */,
 				8E91C51E19B0E828003E591E /* HTAutocompleteManager.m in Sources */,

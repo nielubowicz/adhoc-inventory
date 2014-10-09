@@ -132,6 +132,11 @@ NSString *const kEmployeeDeniedNotification = @"EmployeeDeniedNotification";
 
 -(void)sellItem:(InventoryItem *)item
 {
+    if (item == nil)
+    {
+        return;
+    }
+    
     PFQuery *query = [PFQuery queryWithClassName:kPFInventoryClassName];
     [query getObjectInBackgroundWithId:[[item inventoryID] description] block:^(PFObject *inventoryItem, NSError *error) {
         if (error != nil)

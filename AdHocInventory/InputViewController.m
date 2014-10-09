@@ -33,6 +33,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setDefaultBackground];
+    
 	// Do any additional setup after loading the view, typically from a nib.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemAdded:) name:kInventoryItemAddedNotification object:nil];
     
@@ -41,9 +44,10 @@
     
     [self updateQuantity:quantityStepper];
     [[[self view] subviews] enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[UITextField class]])
+        if ([obj isKindOfClass:[HTAutocompleteTextField class]])
         {
             CALayer *layer = obj.layer;
+            layer.cornerRadius = 1.0f;
             layer.borderColor = [UIColor lightTealColor].CGColor;
             layer.borderWidth = 2.0f;
         }
@@ -89,9 +93,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(IBAction)reset:(UIStoryboardSegue *)segue {
+    //do stuff
+}
+
 #pragma mark -
 - (void)presentLoginViewController {
     UILabel *logo = [UILabel new];
+    [logo setBackgroundColor:[UIColor clearColor]];
     [logo setText:@"AdHoc Inventory"];
     [logo setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
     [logo setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];
@@ -105,6 +114,7 @@
     [[logInViewController logInView] setLogo:logo];
     
     UILabel *logo2 = [UILabel new];
+    [logo2 setBackgroundColor:[UIColor clearColor]];
     [logo2 setText:@"AdHoc Inventory"];
     [logo2 setTextColor:[UIColor colorWithWhite:0.90 alpha:1.0]];
     [logo2 setShadowColor:[UIColor colorWithWhite:0.25 alpha:0.5]];

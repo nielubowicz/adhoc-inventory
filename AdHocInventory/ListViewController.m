@@ -32,6 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setDefaultBackground];
+    
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemAdded:) name:kInventoryItemAddedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemSold:) name:kInventoryItemSoldNotification object:nil];
@@ -67,6 +69,10 @@
         InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
         [controller setItem:item];
     }
+}
+
+-(IBAction)reset:(UIStoryboardSegue *)segue {
+    //do stuff
 }
 
 #pragma mark - InventoryItem notifications

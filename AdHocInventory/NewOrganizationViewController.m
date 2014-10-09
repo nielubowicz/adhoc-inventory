@@ -32,13 +32,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
+    [self setDefaultBackground];
     [state setAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
     [state setAutocompleteType:HTAutocompleteTypeUSState];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -48,8 +49,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)addOrganization:(id)sender {
-    //verify inputs
+- (IBAction)addOrganization:(id)sender
+{
+    // TODO: verify inputs
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(newOrganizationAdded:)
@@ -62,14 +64,16 @@
     [[[self navigationItem] rightBarButtonItem] setEnabled:NO];
 }
 
-- (IBAction)handleSingleTap:(id)sender {
+- (IBAction)handleSingleTap:(id)sender
+{
     [[[self view] subviews] enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
         [obj resignFirstResponder];
     }];
 }
 
-- (void)newOrganizationAdded:(NSNotification *)notification {
-    [self performSegueWithIdentifier:@"dismiss" sender:self];
+- (void)newOrganizationAdded:(NSNotification *)notification
+{
+    [self performSegueWithIdentifier:@"dismissItem" sender:self];
 }
 
 @end
