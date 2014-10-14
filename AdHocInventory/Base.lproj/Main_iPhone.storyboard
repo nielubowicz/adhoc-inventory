@@ -286,7 +286,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.94763112985981035" green="0.85118174662666479" blue="0.96420599489795922" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.9490196704864502" green="0.88627457618713379" blue="0.82352948188781738" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="RWg-9X-kk9">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="cancel" id="78k-Nd-bf1">
