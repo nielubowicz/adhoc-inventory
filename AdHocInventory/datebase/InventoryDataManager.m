@@ -61,7 +61,7 @@ NSString *const kEmployeeDeniedNotification = @"EmployeeDeniedNotification";
     [employeeQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (object == nil || error != nil)
         {
-            NSLog(@"The getFirstObject request failed.");
+            NSLog(@"The getFirstObject request failed for Volunteer role for %@.", [PFUser currentUser]);
             return;
         }
         

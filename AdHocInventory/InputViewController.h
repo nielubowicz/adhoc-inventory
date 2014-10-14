@@ -11,7 +11,7 @@
 
 @class HTAutocompleteTextField;
 
-@interface InputViewController : UIViewController <PFSignUpViewControllerDelegate,PFLogInViewControllerDelegate>
+@interface InputViewController : UIViewController <PFSignUpViewControllerDelegate,PFLogInViewControllerDelegate,UITextFieldDelegate>
 
 @property (weak,nonatomic)IBOutlet HTAutocompleteTextField *category;
 @property (weak,nonatomic)IBOutlet UITextField *itemDescription;

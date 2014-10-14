@@ -36,10 +36,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)reset:(UIStoryboardSegue *)segue {
-    //do stuff
-}
-
 - (PFTableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
                         object:(PFObject *)object
@@ -86,16 +82,6 @@
             [[InventoryDataManager sharedManager] addCurrentUserToOrganization:organization];
         }
     }
-    else if ([[segue identifier] isEqualToString:@"showNewOrganization"])
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(newOrganizationAdded:)
-                                                     name:kOrganizationAddedNotification object:nil];
-    }
-}
-
-- (void)newOrganizationAdded:(NSNotification *)notification {
-    [self performSegueWithIdentifier:@"selectedDismiss" sender:self];
 }
 
 @end

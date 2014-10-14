@@ -26,6 +26,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="CZ4-MO-1fc" id="Bet-q6-HvO"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Description" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6LA-AL-upy" userLabel="Description" customClass="AHITextField">
                                 <rect key="frame" x="20" y="116" width="280" height="36"/>
@@ -36,6 +39,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="CZ4-MO-1fc" id="Rh7-L7-8oD"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Notes (optional)" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Khn-4D-Lba" userLabel="Notes" customClass="AHITextField">
                                 <rect key="frame" x="20" y="160" width="280" height="36"/>
@@ -46,6 +52,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="CZ4-MO-1fc" id="kog-El-Ott"/>
+                                </connections>
                             </textField>
                             <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="mqH-h4-oVA">
                                 <rect key="frame" x="206" y="204" width="94" height="29"/>
@@ -316,7 +325,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gji-jF-a9a">
-                                <rect key="frame" x="-1" y="417" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="419" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="PCx-nw-FoM"/>
@@ -326,7 +335,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAO-vR-Oqq">
-                                <rect key="frame" x="-1" y="417" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="419" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="YIH-Rv-hkW"/>

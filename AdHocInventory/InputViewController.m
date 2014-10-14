@@ -142,6 +142,23 @@
     }
 }
 
+- (BOOL)textFieldShouldReturn:(id)sender {
+    
+    if (sender == category)
+    {
+        [itemDescription becomeFirstResponder];
+    }
+    else if (sender == itemDescription)
+    {
+        [notes becomeFirstResponder];
+    }
+    else if (sender == notes)
+    {
+        [self addItem:self];
+    }
+    return YES;
+}
+
 #pragma mark PFLoginViewControllerDelegate methods
 // Sent to the delegate to determine whether the log in request should be submitted to the server.
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password
