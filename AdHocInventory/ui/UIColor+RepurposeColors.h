@@ -11,5 +11,6 @@
 @interface UIColor (RepurposeColors)
 
 +(UIColor *)lightTealColor;
++(UIColor *)darkOrangeColor;
 
 @end

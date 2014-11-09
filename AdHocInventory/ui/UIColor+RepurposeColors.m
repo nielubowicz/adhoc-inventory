@@ -12,7 +12,12 @@
 
 +(UIColor *)lightTealColor
 {
-    return [UIColor colorWithRed:46/255.0f green:164/255.0f blue:238/255.0f alpha:1.0];
+    return [UIColor colorWithRed:52/255.0f green:152/255.0f blue:219/255.0f alpha:1.0];
+}
+
++(UIColor *)darkOrangeColor
+{
+    return [UIColor colorWithRed:211/255.0f green:84/255.0f blue:0/255.0f alpha:1.0];
 }
 
 @end
