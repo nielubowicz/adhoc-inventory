@@ -73,7 +73,7 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([[segue identifier] isEqualToString:@"selectedDismiss"]) {
+    if ([[segue identifier] isEqualToString:@"dismissItem"]) {
         
         NSIndexPath *selectedIndexPath = [[self tableView] indexPathForSelectedRow];
         if (selectedIndexPath != nil)

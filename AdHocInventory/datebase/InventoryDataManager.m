@@ -145,12 +145,12 @@ NSString *const kEmployeeDeniedNotification = @"EmployeeDeniedNotification";
             return;
         }
         
-        // make sure user is at least an employee to be able to sell the item
-        PFQuery *queryRole = [PFRole query];
-        [queryRole whereKey:@"users" containedIn:@[[PFUser currentUser]]];
-        [queryRole whereKey:@"name" containsString:kEmployeeRoleSuffix];
-        [queryRole getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            if (object == nil || error != nil) {
+        PFObject *soldItem = [PFObject objectWithClassName:kPFInventorySoldClassName];
+        soldItem[kPFInventoryTSSoldKey] = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]];
+        
+        [soldItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error != nil) {
+            // TODO: OR there was an error
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NULL
                                                                 message:@"You aren't allowed to do that"
                                                                delegate:nil
@@ -159,33 +159,23 @@ NSString *const kEmployeeDeniedNotification = @"EmployeeDeniedNotification";
                 [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
                 return;
             }
-        
-            PFObject *soldItem = [PFObject objectWithClassName:kPFInventorySoldClassName];
-            soldItem[kPFInventoryTSSoldKey] = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]];
             
-            [soldItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            PFRelation *soldItemRelation = [inventoryItem relationForKey:kPFInventorySoldItemKey];
+            [soldItemRelation addObject:soldItem];
+            
+            NSUInteger currentAvailableQuantity = [inventoryItem[kPFInventoryQuantityKey] unsignedIntegerValue];
+            inventoryItem[kPFInventoryQuantityKey] = [NSNumber numberWithUnsignedInt:--currentAvailableQuantity];
+            
+            [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (error != nil)
                 {
-                    NSLog(@"There was an error selling PFObject:%@, err:%@",soldItem,error);
+                    NSLog(@"There was an error adding PFObject:%@ to relationship, err:%@",inventoryItem,error);
                     return;
                 }
-                PFRelation *soldItemRelation = [inventoryItem relationForKey:kPFInventorySoldItemKey];
-                [soldItemRelation addObject:soldItem];
                 
-                NSUInteger currentAvailableQuantity = [inventoryItem[kPFInventoryQuantityKey] unsignedIntegerValue];
-                inventoryItem[kPFInventoryQuantityKey] = [NSNumber numberWithUnsignedInt:--currentAvailableQuantity];
-                
-                [inventoryItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (error != nil)
-                    {
-                        NSLog(@"There was an error adding PFObject:%@ to relationship, err:%@",inventoryItem,error);
-                        return;
-                    }
-                    
-                    InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
-                    [PFQuery clearAllCachedResults];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemSoldNotification object:item];
-                }];
+                InventoryItem *item = [[InventoryItem alloc] initWithPFObject:inventoryItem];
+                [PFQuery clearAllCachedResults];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kInventoryItemSoldNotification object:item];
             }];
         }];
     }];
@@ -283,6 +273,7 @@ NSString *const kEmployeeDeniedNotification = @"EmployeeDeniedNotification";
                 
                 PFRole *volunteerRole = [PFRole roleWithName:volunteerRoleName acl:volunteerACL];
                 [volunteerRole.roles addObject:employeeRole];
+                [volunteerRole.users addObject:currentUser];
                 [volunteerRole saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (error != nil)
                     {
@@ -456,34 +447,20 @@ NSString *const kEmployeeDeniedNotification = @"EmployeeDeniedNotification";
             }
         }
         
-        PFQuery *pendingVolunteerRole = [PFRole query];
-        [pendingVolunteerRole whereKey:@"users" containedIn:@[approvedUser]];
-        [pendingVolunteerRole whereKey:@"name" containsString:kPendingVolunteerRoleSuffix];
-        [pendingVolunteerRole getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        PFQuery *employeeRoleQuery = [PFRole query];
+        [employeeRoleQuery whereKey:@"name" equalTo:[self.currentOrganizationName stringByAppendingString:kEmployeeRoleSuffix]];
+        
+        [employeeRoleQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
             if (error != nil)
             {
-                NSLog(@"Could not find pending volunteer role for %@, error: %@",approvedUser,error);
+                NSLog(@"Could not find employee role for %@, error: %@",self.currentOrganizationName,error);
                 return;
             }
-            PFRole *pendingVolunteer = (PFRole *)object;
-            [[pendingVolunteer users] removeObject:approvedUser];
+            PFRole *newEmployee = (PFRole *)object;
+            [newEmployee.users addObject:approvedUser];
             
-            PFQuery *employeeRoleQuery = [PFRole query];
-            [employeeRoleQuery whereKey:@"name" equalTo:[self.currentOrganizationName stringByAppendingString:kEmployeeRoleSuffix]];
-            
-            [employeeRoleQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                if (error != nil)
-                {
-                    NSLog(@"Could not find employee role for %@, error: %@",self.currentOrganizationName,error);
-                    return;
-                }
-                PFRole *newEmployee = (PFRole *)object;
-                [newEmployee.users addObject:approvedUser];
-                
-                [PFObject saveAllInBackground:@[pendingEmployee,newEmployee,pendingVolunteer] block:^(BOOL succeeded, NSError *error) {
-                    [PFQuery clearAllCachedResults];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kEmployeeApprovedNotification object:approvedUser];
-                }];
+            [PFObject saveAllInBackground:@[pendingEmployee,newEmployee] block:^(BOOL succeeded, NSError *error) {
+                [self addPendingVolunteerToOrganization:approvedUser];
             }];
         }];
     }];
