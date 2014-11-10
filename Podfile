@@ -3,10 +3,10 @@ platform :ios, "7.0"
 
 target "AdHocInventory" do
 pod "Toast","~> 2.3"
-pod "HTAutocompleteTextField", :git => 'https://github.com/nielubowicz/HTAutocompleteTextField.git'
+pod "HTAutocompleteTextField"
 end
 
 target "AdHocInventory" do
 pod "Toast","~> 2.3"
-pod "HTAutocompleteTextField", :git => 'https://github.com/nielubowicz/HTAutocompleteTextField.git'
+pod "HTAutocompleteTextField"
 end
