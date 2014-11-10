@@ -36,6 +36,16 @@
     [self setDefaultBackground];
     [state setAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
     [state setAutocompleteType:HTAutocompleteTypeUSState];
+
+    [[[self view] subviews] enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[HTAutocompleteTextField class]])
+        {
+            CALayer *layer = obj.layer;
+            layer.cornerRadius = 1.0f;
+            layer.borderColor = [UIColor lightTealColor].CGColor;
+            layer.borderWidth = 2.0f;
+        }
+    }];
 }
 
 - (void)dealloc

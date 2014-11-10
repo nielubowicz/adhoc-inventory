@@ -495,6 +495,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="State" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4P8-V4-hGm" customClass="HTAutocompleteTextField">
                                 <rect key="frame" x="20" y="168" width="280" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="SrK-20-cOl"/>
                                 </constraints>
@@ -788,6 +789,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="bGy-ds-tRs"/>
+        <segue reference="aqr-3g-Jgd"/>
     </inferredMetricsTieBreakers>
 </document>
